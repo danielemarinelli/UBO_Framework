@@ -332,79 +332,92 @@ public class TestBase {
         if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("checkIfClientIsAuthorized")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
-            File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
             email.sendEmailForPublisherFailure("checkIfClientIsAuthorized");
         } else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("checkIfPublishHouseHoldsProcessIsCorrect")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinGA);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
-            File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
             email.sendEmailForPublisherFailure("checkIfPublishHouseHoldsProcessIsCorrect");
         } else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("performPriorityListAction")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinSA);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
-            File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
             email.sendEmailForPublisherFailure("performPriorityListAction");
         } else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("readLogsFromSystemView")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinSV);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
-            File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
             email.sendEmailForPublisherFailure("readLogsFromSystemView");
         }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("checkIfPublisherOpensCorrectly")) {
             TakesScreenshot camera =((TakesScreenshot)driverWinPub);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
-            File DestFile = new File("./src/main/screenShots/FAIL__"+result.getName()+"__"+formatDate()+".png");
+            File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //File DestFile = new File("./src/main/screenShots/FAIL__"+result.getName()+"__"+formatDate()+".png");
             FileHandler.copy(screenShot,DestFile);
             email.sendEmailForPublisherFailure("checkIfPublisherOpensCorrectly");
         }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("verifyCompareFiles")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinPub);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
-            File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
             email.sendEmailForPublisherFailure("verifyCompareFiles");
         }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("copyGeneratedFiles")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
-            File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
             email.sendEmailForPublisherFailure("copyGeneratedFiles");
         }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("verifyDownloadNewApp")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinLC);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
-            File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
             email.sendEmailForPublisherFailure("verifyDownloadNewApp");
         }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("closeAllApps")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
-            File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
             email.sendEmailForPublisherFailure("closeAllApps");
         }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("verifyCompareFiles")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
-            File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
             email.sendEmailForPublisherFailure("verifyCompareFiles");
         }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("moveFiles")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
-            File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
             email.sendEmailForPublisherFailure("moveFiles");
         }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("deleteFiles")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
-            File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
             email.sendEmailForPublisherFailure("deleteFiles");
         }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("emptyFilesInToPanelSetting")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
-            File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
             email.sendEmailForPublisherFailure("emptyFilesInToPanelSetting");
         }
@@ -421,14 +434,16 @@ public class TestBase {
        public void takeAppSnap(WindowsDriver driver, String app) throws IOException {
            TakesScreenshot ts = (TakesScreenshot) driver;
            File file = ts.getScreenshotAs(OutputType.FILE);
-           FileUtils.copyFile(file,new File("./src/main/screenShots/"+app+"__"+formatDate()+".png"));
+           FileUtils.copyFile(file,new File(System.getProperty("user.dir")+"\\screenShots\\"+app+"__"+formatDate()+".png"));
+           //FileUtils.copyFile(file,new File("./src/main/screenShots/"+app+"__"+formatDate()+".png"));
            if(!file.exists()){ file.mkdir(); }
        }
 
     public void takeFileDiffSnap(WindowsDriver driver, String fileName) throws IOException {
         TakesScreenshot ts = (TakesScreenshot) driver;
         File file = ts.getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(file,new File("./src/main/screenShots/"+fileName+".png"));
+        FileUtils.copyFile(file,new File(System.getProperty("user.dir")+"\\screenShots\\"+fileName+".png"));
+        //FileUtils.copyFile(file,new File("./src/main/screenShots/"+fileName+".png"));
         if(!file.exists()){ file.mkdir(); }
     }
 

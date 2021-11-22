@@ -15,7 +15,8 @@ public class excelUserData {
     public static List<Map<String, String>> getDataFromExcelFile() throws IOException {
         List<Map<String,String>> testDataAllRows=null;
         Map<String,String> testData=null;
-        FileInputStream fileInputStream=new FileInputStream("./src/main/resources/testdata/Data_File.xlsx");
+        FileInputStream fileInputStream=new FileInputStream(System.getProperty("user.dir")+"\\dataExcel\\Data_File.xlsx");
+        //FileInputStream fileInputStream=new FileInputStream("./src/main/resources/testdata/Data_File.xlsx");
         Workbook workbook=new XSSFWorkbook(fileInputStream);
         Sheet sheet=workbook.getSheetAt(0);
         int lastRowNumber=sheet.getLastRowNum();
@@ -44,7 +45,8 @@ public class excelUserData {
     public static List<Map<String, String>> getInfoFromEmailSheet() throws IOException {
         List<Map<String,String>> emailInfo=null;
         Map<String,String> testData=null;
-        FileInputStream fileInputStream=new FileInputStream("./src/main/resources/testdata/Email_Info_Sheet.xlsx");
+        FileInputStream fileInputStream=new FileInputStream(System.getProperty("user.dir")+"\\dataExcel\\Email_Info_Sheet.xlsx");
+        //FileInputStream fileInputStream=new FileInputStream("./src/main/resources/testdata/Email_Info_Sheet.xlsx");
         Workbook workbook=new XSSFWorkbook(fileInputStream);
         Sheet sheet=workbook.getSheetAt(0);
         int lastRowNumber=sheet.getLastRowNum();
@@ -77,7 +79,8 @@ public class excelUserData {
     public static List<Map<String, String>> getFoldersNamesFromExcelSheet() throws IOException {
         List<Map<String,String>> FoldersInfo=null;
         Map<String,String> testData=null;
-        FileInputStream fileInputStream=new FileInputStream("./src/main/resources/testdata/Files_Folders.xlsx");
+        FileInputStream fileInputStream=new FileInputStream(System.getProperty("user.dir")+"\\dataExcel\\Files_Folders.xlsx");
+        //FileInputStream fileInputStream=new FileInputStream("./src/main/resources/testdata/Files_Folders.xlsx");
         Workbook workbook=new XSSFWorkbook(fileInputStream);
         Sheet sheet=workbook.getSheetAt(0);
         int lastRowNumber=sheet.getLastRowNum();

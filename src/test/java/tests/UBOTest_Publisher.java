@@ -20,7 +20,7 @@ public class UBOTest_Publisher extends TestBase{
     MoveFiles move = null;
     Delete delete = null;
 
-    //@Test(priority=1, groups={"Publisher_old"})
+    @Test(priority=1, groups={"Publisher_old"})
     public void deleteFilesOfPreviousTest() throws Exception {
         delete = new Delete();
         int numberFiles = delete.deleteFiles();
@@ -30,7 +30,7 @@ public class UBOTest_Publisher extends TestBase{
             Assert.fail();}
     }
 
-    //@Test(priority=1, groups={"Publisher_new"})
+    @Test(priority=1, groups={"Publisher_new"})
     public void emptyFilesInToPanelSetting() throws IOException {
         delete = new Delete();
         int numberFiles = delete.emptyFolderSetting();
@@ -40,7 +40,7 @@ public class UBOTest_Publisher extends TestBase{
             Assert.fail();}
     }
 
-    //@Test(priority=2, groups={"Publisher_old","Publisher_new"})
+    @Test(priority=2, groups={"Publisher_old","Publisher_new"})
     public void checkIfClientIsAuthorized() {
         rfas = new RFAS(getDriverRFAS());
          int client_RFAS = 0;
@@ -65,10 +65,9 @@ public class UBOTest_Publisher extends TestBase{
         ArrayPublisherVersion = p.getPublisherVersion().replace("."," ").split(" ");
         System.out.println("Publisher Version is... "+ArrayPublisherVersion[3]);
         Assert.assertEquals(title_Publisher,"Publisher");
-        //getDriverPub().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
-    //@Test(priority=4, groups={"Publisher_old","Publisher_new"})
+    @Test(priority=4, groups={"Publisher_old","Publisher_new"})
     public void performPriorityListAction() {
         String title_SignalsAdmin = null;
         try {
@@ -84,7 +83,7 @@ public class UBOTest_Publisher extends TestBase{
         getDriverSignalsAdmin().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
      }
 
-    //@Test(priority=5, groups={"Publisher_old","Publisher_new"})
+    @Test(priority=5, groups={"Publisher_old","Publisher_new"})
     public void checkIfPublishHouseHoldsProcessIsCorrect()  {
         String title_GroupAdmin = null;
         try {
@@ -101,7 +100,7 @@ public class UBOTest_Publisher extends TestBase{
         Assert.assertEquals(title_GroupAdmin,"GroupAdmin");
     }
 
-    //@Test(priority=6, groups={"Publisher_old","Publisher_new"})
+    @Test(priority=6, groups={"Publisher_old","Publisher_new"})
     public void readLogsFromSystemView() throws Exception {
         System.out.println("##########System View############");
         String title_sv = null;
@@ -117,7 +116,7 @@ public class UBOTest_Publisher extends TestBase{
         Assert.assertEquals(title_sv,"SystemView");
     }
 
-    //@Test(priority=7, groups={"Publisher_old"})
+    @Test(priority=7, groups={"Publisher_old"})
     public void copyGeneratedFilesToOldTestVersionFolder() throws Exception {
         System.out.println("Inside copyGeneratedFiles() method");
          copy = new CopyFiles();
@@ -127,7 +126,7 @@ public class UBOTest_Publisher extends TestBase{
         Assert.assertTrue(t);
     }
 
-    //@Test(priority=7, groups={"Publisher_new"})
+    @Test(priority=7, groups={"Publisher_new"})
     public void copyGeneratedFilesToNewTestVersionFolder() throws Exception {
         System.out.println("Inside copyGeneratedFiles() method");
         copy = new CopyFiles();
@@ -139,14 +138,14 @@ public class UBOTest_Publisher extends TestBase{
 
     //ALWAYS REMEMBER TO NAME:
     //C:\UNITAM SW\Publisher the old version and C:\TEST\PublisherXXX the new version where XXX is the new version, ex 117
-    //@Test(priority=8, groups={"Publisher_old"})
+    @Test(priority=8, groups={"Publisher_old"})
     public void verifyDownloadNewApp() throws Exception {
         System.out.println("Inside verifyDownloadNewApp() method");
         copy = new CopyFiles();
         copy.installNewApp(getDriverPub());
     }
 
-    //@Test(priority=9, groups={"Publisher_old",})
+    @Test(priority=9, groups={"Publisher_old",})
     public void closeAllApps() throws InterruptedException {
         //switchToWindowWinMerge(getDriverWinMerge());
         //tearDownWinMerge();
