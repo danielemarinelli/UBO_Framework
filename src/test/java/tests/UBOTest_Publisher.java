@@ -74,6 +74,7 @@ public class UBOTest_Publisher extends TestBase{
             setUpSignalsAdmin();
             sa = new SignalAdmin(getDriverSignalsAdmin());
             sa.openSignalsAdminApp();
+            Thread.sleep(6000);
             switchToWindowSA(getDriverSignalsAdmin());
             title_SignalsAdmin = sa.processPriorityList();
         } catch (Exception e) {
@@ -90,6 +91,7 @@ public class UBOTest_Publisher extends TestBase{
             setUpGroupAdmin();
             ga = new GroupAdmin(getDriverGA(),getDriverPub());
             ga.openGroupAdminApp();
+            Thread.sleep(6000);
             switchToWindowGA(getDriverGA());
             //title_GroupAdmin = ga.publishAll_HH();  1322
             //title_GroupAdmin = ga.publishOnlyActive_HH();  //  818

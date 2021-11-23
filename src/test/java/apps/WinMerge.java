@@ -98,6 +98,8 @@ public class WinMerge extends TestBase {
         return files.size();
     }
 
+
+
     public int generateReportToSend(String version) throws Exception {
         folders_names = excelUserData.getFoldersNamesFromExcelSheet();
         switchToWindowWinMerge(driverWinMerge);
