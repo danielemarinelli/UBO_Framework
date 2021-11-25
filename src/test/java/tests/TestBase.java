@@ -409,22 +409,22 @@ public class TestBase {
             //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
             email.sendEmailForPublisherFailure("verifyCompareFiles");
-        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("moveFiles")) {
+        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("actionsWithFiles")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
             File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
             //File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
             //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
-            email.sendEmailForPublisherFailure("moveFiles");
-        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("deleteFiles")) {
+            email.sendEmailForPublisherFailure("actionsWithFiles");
+        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("deleteFilesOfPreviousTest")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
             File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
             //File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
             //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
-            email.sendEmailForPublisherFailure("deleteFiles");
+            email.sendEmailForPublisherFailure("deleteFilesOfPreviousTest");
         }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("emptyFilesInToPanelSetting")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);

@@ -184,10 +184,12 @@ public class UBOTest_Publisher extends TestBase{
                 Assert.fail();}
     }
 
-    //@Test(priority=9, groups={"Publisher_new"})  //NOT NEEDED
-    public void moveFiles() throws IOException {
+    @Test(priority=9, groups={"Publisher_new"})
+    public void actionsWithFiles() throws IOException {
         move = new MoveFiles(getDriverWinMerge());
-        int files = move.moveFiles();
+        //int files = move.moveFiles();
+        //int files = move.eraseLineInFile();
+        int files = move.cancelPublisherOldExeFileFromUnitamSWFolder();
         if(files>0){
             Assert.assertTrue(true);
         }else{

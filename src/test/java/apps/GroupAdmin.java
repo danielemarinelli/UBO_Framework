@@ -137,7 +137,7 @@ public class GroupAdmin extends TestBase {
         getHHFromFile = excelUserData.getFoldersNamesFromExcelSheet();
         int hh =  Integer.parseInt(getHHFromFile.get(0).get("HH_To_Publish").replace(".0",""));
         System.out.println("clicked FILTER button....");
-        Thread.sleep(12000);
+        Thread.sleep(7000);
         //WebDriverWait wait = new WebDriverWait(driverWinGA, 40);
         //wait.until(ExpectedConditions.visibilityOf(driverWinGA.findElementByName("Advanced filter:")));  //elementToBeClickable(driverWinGA.findElementByName("Advanced filter:")));
         driverWinGA.findElementByName("Advanced filter:").click();
@@ -155,7 +155,7 @@ public class GroupAdmin extends TestBase {
         driverWinGA.findElementByName("OK").click();
         Thread.sleep(500);
         driverWinGA.findElementByName("Read").click();
-        Thread.sleep(5000);
+        Thread.sleep(2000);
         WebElement selectAll = driverWinGA.findElementByAccessibilityId("1010");
         Actions a = new Actions(driverWinGA);
         Thread.sleep(500);

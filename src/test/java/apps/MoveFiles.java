@@ -4,7 +4,8 @@ import io.appium.java_client.windows.WindowsDriver;
 import org.openqa.selenium.remote.RemoteWebElement;
 import tests.TestBase;
 import core.excelUserData;
-import java.io.IOException;
+
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -63,4 +64,48 @@ public class MoveFiles extends TestBase {
     }
 
 
+    public int eraseLineInFile() throws IOException {
+
+        File inputFile = new File("C:\\Users\\damarine2101\\Documents\\_Daniele\\telepanel.txt");
+        File tempFile = new File("C:\\Users\\damarine2101\\Documents\\_Daniele\\telepanel_report.txt");
+
+        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+        String currentLine;
+        while((currentLine = reader.readLine()) != null) {
+            if(null!=currentLine && !currentLine.contains("prova")){   //nToPanelFileVer
+                writer.write(currentLine + System.getProperty("line.separator"));
+            }
+        }
+        System.out.println("Erased row!!");
+        writer.close();
+        reader.close();
+
+        //String fileName = "FILE_TEST.txt";
+        //File file = new File(fileName);
+        Path file = Paths.get("C:\\Users\\damarine2101\\Documents\\_Daniele\\telepanel_1.txt");
+        byte[] buf = "".getBytes();  //CREATE EMPTY .TXT FILE
+        Files.write(file, buf);
+
+        // Delete the original file
+        if (!inputFile.delete()) {System.out.println("Could not delete original file");}
+        // Rename the new file to the filename the original file had.
+        if (!tempFile.renameTo(inputFile)) {System.out.println("Could not rename file");}
+
+
+        boolean successful = tempFile.renameTo(inputFile);
+        System.out.println(successful);
+        return 1;
+    }
+
+    public int cancelPublisherOldExeFileFromUnitamSWFolder() throws IOException {
+        Path temp = Files.move
+                (Paths.get("C:\\UNITAM SW\\Publisher_OLD_VERS.exe"),
+                        Paths.get("C:\\TEST\\old_EXE\\Publisher_OLD_VERS.exe"));
+        if(temp != null)
+        {System.out.println("File renamed and moved successfully");}
+        else
+        {System.out.println("Failed to move the file");}
+        return 1;
+    }
 }

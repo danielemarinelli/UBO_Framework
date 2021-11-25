@@ -103,6 +103,7 @@ public class WinMerge extends TestBase {
     public int generateReportToSend(String version) throws Exception {
         folders_names = excelUserData.getFoldersNamesFromExcelSheet();
         switchToWindowWinMerge(driverWinMerge);
+        List diffs = driverWinMerge.findElementsByAccessibilityId("ListViewSubItem-4");
         WebElement menuBar = driverWinMerge.findElementByAccessibilityId("MenuBar");
         WebElement title = driverWinMerge.findElementByAccessibilityId("TitleBar");
         WebElement diffButton = driverWinMerge.findElementByName("Next Difference (Alt+Down)");
