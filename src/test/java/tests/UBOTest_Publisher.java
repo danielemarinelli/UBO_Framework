@@ -18,9 +18,10 @@ public class UBOTest_Publisher extends TestBase{
     CopyFiles copy = null;
     public String[] ArrayPublisherVersion = null;
     MoveFiles move = null;
+    SystemManager sm = null;
     Delete delete = null;
 
-    @Test(priority=1, groups={"Publisher_old"})
+    //@Test(priority=1, groups={"Publisher_old"})
     public void deleteFilesOfPreviousTest() throws Exception {
         delete = new Delete();
         int numberFiles = delete.deleteFiles();
@@ -30,7 +31,7 @@ public class UBOTest_Publisher extends TestBase{
             Assert.fail();}
     }
 
-    @Test(priority=1, groups={"Publisher_new"})
+    //@Test(priority=1, groups={"Publisher_new"})
     public void emptyFilesInToPanelSetting() throws IOException {
         delete = new Delete();
         int numberFiles = delete.emptyFolderSetting();
@@ -40,7 +41,7 @@ public class UBOTest_Publisher extends TestBase{
             Assert.fail();}
     }
 
-    @Test(priority=2, groups={"Publisher_old","Publisher_new"})
+    //@Test(priority=2, groups={"Publisher_old","Publisher_new"})
     public void checkIfClientIsAuthorized() {
         rfas = new RFAS(getDriverRFAS());
          int client_RFAS = 0;
@@ -52,7 +53,7 @@ public class UBOTest_Publisher extends TestBase{
          Assert.assertEquals( client_RFAS,1);
     }
 
-    @Test(priority=3, groups={"Publisher_old","Publisher_new"})
+    //@Test(priority=3, groups={"Publisher_old","Publisher_new"})
     public void checkIfPublisherOpensCorrectly()  {
         setUpPublisher();
         p = new Publisher(getDriverPub());
@@ -67,14 +68,14 @@ public class UBOTest_Publisher extends TestBase{
         Assert.assertEquals(title_Publisher,"Publisher");
     }
 
-    @Test(priority=4, groups={"Publisher_old","Publisher_new"})
+    //@Test(priority=4, groups={"Publisher_old","Publisher_new"})
     public void performPriorityListAction() {
         String title_SignalsAdmin = null;
         try {
             setUpSignalsAdmin();
             sa = new SignalAdmin(getDriverSignalsAdmin());
             sa.openSignalsAdminApp();
-            Thread.sleep(6000);
+            //Thread.sleep(6000);
             switchToWindowSA(getDriverSignalsAdmin());
             title_SignalsAdmin = sa.processPriorityList();
         } catch (Exception e) {
@@ -84,14 +85,14 @@ public class UBOTest_Publisher extends TestBase{
         getDriverSignalsAdmin().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
      }
 
-    @Test(priority=5, groups={"Publisher_old","Publisher_new"})
+    //@Test(priority=5, groups={"Publisher_old","Publisher_new"})
     public void checkIfPublishHouseHoldsProcessIsCorrect()  {
         String title_GroupAdmin = null;
         try {
             setUpGroupAdmin();
             ga = new GroupAdmin(getDriverGA(),getDriverPub());
             ga.openGroupAdminApp();
-            Thread.sleep(6000);
+            //Thread.sleep(6000);
             switchToWindowGA(getDriverGA());
             //title_GroupAdmin = ga.publishAll_HH();  1322
             //title_GroupAdmin = ga.publishOnlyActive_HH();  //  818
@@ -102,7 +103,7 @@ public class UBOTest_Publisher extends TestBase{
         Assert.assertEquals(title_GroupAdmin,"GroupAdmin");
     }
 
-    @Test(priority=6, groups={"Publisher_old","Publisher_new"})
+    //@Test(priority=6, groups={"Publisher_old","Publisher_new"})
     public void readLogsFromSystemView() throws Exception {
         System.out.println("##########System View############");
         String title_sv = null;
@@ -118,7 +119,7 @@ public class UBOTest_Publisher extends TestBase{
         Assert.assertEquals(title_sv,"SystemView");
     }
 
-    @Test(priority=7, groups={"Publisher_old"})
+    //@Test(priority=7, groups={"Publisher_old"})
     public void copyGeneratedFilesToOldTestVersionFolder() throws Exception {
         System.out.println("Inside copyGeneratedFiles() method");
          copy = new CopyFiles();
@@ -128,7 +129,7 @@ public class UBOTest_Publisher extends TestBase{
         Assert.assertTrue(t);
     }
 
-    @Test(priority=7, groups={"Publisher_new"})
+    //@Test(priority=7, groups={"Publisher_new"})
     public void copyGeneratedFilesToNewTestVersionFolder() throws Exception {
         System.out.println("Inside copyGeneratedFiles() method");
         copy = new CopyFiles();
@@ -140,17 +141,15 @@ public class UBOTest_Publisher extends TestBase{
 
     //ALWAYS REMEMBER TO NAME:
     //C:\UNITAM SW\Publisher the old version and C:\TEST\PublisherXXX the new version where XXX is the new version, ex 117
-    @Test(priority=8, groups={"Publisher_old"})
+    //@Test(priority=8, groups={"Publisher_old"})
     public void verifyDownloadNewApp() throws Exception {
         System.out.println("Inside verifyDownloadNewApp() method");
         copy = new CopyFiles();
         copy.installNewApp(getDriverPub());
     }
 
-    @Test(priority=9, groups={"Publisher_old",})
+    //@Test(priority=9, groups={"Publisher_old",})
     public void closeAllApps() throws InterruptedException {
-        //switchToWindowWinMerge(getDriverWinMerge());
-        //tearDownWinMerge();
         System.out.println("WinMerge closed...");
         switchToWindowSA(getDriverSignalsAdmin());
         tearDownSA();
@@ -171,8 +170,25 @@ public class UBOTest_Publisher extends TestBase{
         System.out.println("App closed!!!!");
     }
 
+    //@Test(groups={"Publisher_old"})
+    public void closeLCWatchDog(){
+        switchToWindowRFAS(getDriverRFAS());
+        tearDownRFAS();
+        System.out.println("RFAS closed...");
+        switchToWindowFM(getDriverFM());
+        tearDownFM();
+        System.out.println("FM closed...");
+        switchToWindowLC(getDriverLC());
+        tearDownLC();
+        System.out.println("App closed!!!!");
+        setUpSystemManager();
+        //switchToWindowSM(getDriverSM());
+        sm = new SystemManager();
+        sm.closeWatchDog(getDriverSM());
+    }
+
     //THE LAST TEST AFTER BOTH VERS APPS PUBLISHED!!
-    @Test(priority=8, groups={"Publisher_new"})
+    //@Test(priority=8, groups={"Publisher_new"})
     public void verifyCompareFiles() throws Exception {
             wm = new WinMerge(getDriverWinMerge());
             //int files = wm.selectFilesToCompare();
@@ -184,13 +200,13 @@ public class UBOTest_Publisher extends TestBase{
                 Assert.fail();}
     }
 
-    @Test(priority=9, groups={"Publisher_new"})
+    //@Test(priority=9, groups={"Publisher_new"})
     public void actionsWithFiles() throws IOException {
         move = new MoveFiles(getDriverWinMerge());
         //int files = move.moveFiles();
         //int files = move.eraseLineInFile();
-        int files = move.cancelPublisherOldExeFileFromUnitamSWFolder();
-        if(files>0){
+        int file = move.cancelPublisherOldExeFileFromUnitamSWFolder();
+        if(file==1){
             Assert.assertTrue(true);
         }else{
             Assert.fail();}

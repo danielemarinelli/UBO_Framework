@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class MoveFiles extends TestBase {
 
@@ -66,14 +67,14 @@ public class MoveFiles extends TestBase {
 
     public int eraseLineInFile() throws IOException {
 
-        File inputFile = new File("C:\\Users\\damarine2101\\Documents\\_Daniele\\telepanel.txt");
-        File tempFile = new File("C:\\Users\\damarine2101\\Documents\\_Daniele\\telepanel_report.txt");
+        File inputFile = new File("C:\\Windows\\Publisher.ini");
+        File tempFile = new File("C:\\Windows\\Publisher_copy.ini");
 
         BufferedReader reader = new BufferedReader(new FileReader(inputFile));
         BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
         String currentLine;
         while((currentLine = reader.readLine()) != null) {
-            if(null!=currentLine && !currentLine.contains("prova")){   //nToPanelFileVer
+            if(null!=currentLine && !currentLine.contains("nToPanelFileVer")){   //nToPanelFileVer
                 writer.write(currentLine + System.getProperty("line.separator"));
             }
         }
@@ -81,11 +82,11 @@ public class MoveFiles extends TestBase {
         writer.close();
         reader.close();
 
-        //String fileName = "FILE_TEST.txt";
+        //HOW CREATE EMPTY FILE
         //File file = new File(fileName);
-        Path file = Paths.get("C:\\Users\\damarine2101\\Documents\\_Daniele\\telepanel_1.txt");
-        byte[] buf = "".getBytes();  //CREATE EMPTY .TXT FILE
-        Files.write(file, buf);
+        //Path file = Paths.get("C:\\telepanel_1.txt");
+        //byte[] buf = "".getBytes();  //CREATE EMPTY .TXT FILE
+        //Files.write(file, buf);
 
         // Delete the original file
         if (!inputFile.delete()) {System.out.println("Could not delete original file");}
@@ -106,6 +107,7 @@ public class MoveFiles extends TestBase {
         {System.out.println("File renamed and moved successfully");}
         else
         {System.out.println("Failed to move the file");}
-        return 1;
+        int e = Objects.requireNonNull(new File("C:\\TEST\\old_EXE").list()).length;
+        return e;
     }
 }

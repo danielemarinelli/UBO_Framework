@@ -40,6 +40,7 @@ public class TestBase {
     public WindowsDriver driverWinGA=null;
     private WindowsDriver driverWinSA=null;
     private WindowsDriver driverWinSV=null;
+    private WindowsDriver driverWinSM=null;
     private TestReporter reporter;
     String date = null;
 
@@ -167,6 +168,22 @@ public class TestBase {
         //driverWinGA.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
+    public void setUpSystemManager() {
+        DesiredCapabilities SystemManager = new DesiredCapabilities();
+        SystemManager.setCapability("app", "C:\\Windows\\System32\\Taskmgr.exe");
+        SystemManager.setCapability("platformName", "Windows_SystemManager");
+        SystemManager.setCapability("deviceName", "WindowsPC_SystemManager");
+        try {
+            driverWinSM = new WindowsDriver(new URL("http://127.0.0.1:4723/"), SystemManager);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        Set<String> windowsSM = driverWinSM.getWindowHandles();
+        Assert.assertNotNull(driverWinSM,"SystemManager didn't open");
+        System.out.println("SM handler: "+windowsSM);
+        //driverWinGA.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    }
+
     public WindowsDriver getDriverLC() { return driverWinLC;}
     public WindowsDriver getDriverFM() { return driverWinFM;}
     public WindowsDriver getDriverRFAS() { return driverWinRFAS;}
@@ -175,7 +192,7 @@ public class TestBase {
     public WindowsDriver getDriverSignalsAdmin() { return driverWinSA;}
     public WindowsDriver getDriverWinMerge() { return driverWinMerge;}
     public WindowsDriver getDriverSV() { return driverWinSV;}
-
+    public WindowsDriver getDriverSM() { return driverWinSM;}
 
     public void tearDownSA() {
         driverWinSA.close();
@@ -204,7 +221,7 @@ public class TestBase {
     }
 
         //@AfterSuite
-        public void tearDownRFAS() {
+         public void tearDownRFAS() {
             driverWinRFAS.close();
             for (int i = 0; i < 2; i++) { driverWinRFAS.findElementByName("Yes").click(); }
         }
@@ -220,7 +237,6 @@ public class TestBase {
             WebDriverWait wait = new WebDriverWait(wd, 40);
             return wait.until(ExpectedConditions.elementToBeClickable(ele));
           }
-
 
     public void rightMouseClick(WindowsDriver ele,WindowsDriver driver){
         Actions actions = new Actions(driver);
@@ -252,7 +268,6 @@ public class TestBase {
     }
 
     public void switchToWindowPublisher(WindowsDriver driverWinPub) {
-        System.out.println();
         Set<String> windows = driverWinPub.getWindowHandles();
         for(String w : windows) {
             driverWinPub.switchTo().window(w);
@@ -261,7 +276,6 @@ public class TestBase {
     }
 
     public void switchToWindowSV(WindowsDriver driverWinSV) {
-        System.out.println();
         Set<String> windows = driverWinSV.getWindowHandles();
         for(String w : windows) {
             driverWinSV.switchTo().window(w);
@@ -269,8 +283,15 @@ public class TestBase {
         }
     }
 
+    public void switchToWindowSM(WindowsDriver driverWinSM) {
+        Set<String> windows = driverWinSM.getWindowHandles();
+        for(String w : windows) {
+            driverWinSM.switchTo().window(w);
+            System.out.println("---> SystemManager window: "+w);
+        }
+    }
+
     public void switchToWindowRFAS(WindowsDriver driverWinRFAS) {
-        System.out.println();
         Set<String> windows = driverWinRFAS.getWindowHandles();
         for(String w : windows) {
             driverWinRFAS.switchTo().window(w);
@@ -279,7 +300,6 @@ public class TestBase {
     }
 
     public void switchToWindowFM(WindowsDriver driverWinFM) {
-        System.out.println();
         Set<String> windows = driverWinFM.getWindowHandles();
         for(String w : windows) {
             driverWinFM.switchTo().window(w);
@@ -288,7 +308,6 @@ public class TestBase {
     }
 
     public void switchToWindowLC(WindowsDriver driverWinLC) {
-        System.out.println();
         Set<String> windows = driverWinLC.getWindowHandles();
         for(String w : windows) {
             driverWinLC.switchTo().window(w);
