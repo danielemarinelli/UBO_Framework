@@ -137,7 +137,7 @@ public class GroupAdmin extends TestBase {
         getHHFromFile = excelUserData.getFoldersNamesFromExcelSheet();
         int hh =  Integer.parseInt(getHHFromFile.get(0).get("HH_To_Publish").replace(".0",""));
         System.out.println("clicked FILTER button....");
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         //WebDriverWait wait = new WebDriverWait(driverWinGA, 40);
         //wait.until(ExpectedConditions.visibilityOf(driverWinGA.findElementByName("Advanced filter:")));  //elementToBeClickable(driverWinGA.findElementByName("Advanced filter:")));
         driverWinGA.findElementByName("Advanced filter:").click();

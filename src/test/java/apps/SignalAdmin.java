@@ -33,7 +33,7 @@ public class SignalAdmin extends TestBase {
         System.out.println("SignalsAdmin opens correctly and pressing Lock button...");
         System.out.println("handler here IN THE SECOND PAGE---> "+driverWinSA.getWindowHandle());
         String title[] = driverWinSA.getTitle().split(" ");
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         //WindowsDriverWait wait = new WebDriverWait(driverWinSA, 40);
         //wait.until(ExpectedConditions.visibilityOf(driverWinSA.findElementByName("Lock")));
         driverWinSA.findElementByName("Lock").click();

@@ -21,7 +21,7 @@ public class UBOTest_Publisher extends TestBase{
     SystemManager sm = null;
     Delete delete = null;
 
-    //@Test(priority=1, groups={"Publisher_old"})
+    @Test(priority=1, groups={"Publisher_old"}, description="Delete TEST files from previous Test execution")
     public void deleteFilesOfPreviousTest() throws Exception {
         delete = new Delete();
         int numberFiles = delete.deleteFiles();
@@ -31,7 +31,7 @@ public class UBOTest_Publisher extends TestBase{
             Assert.fail();}
     }
 
-    //@Test(priority=1, groups={"Publisher_new"})
+    @Test(priority=1, groups={"Publisher_new"}, description="Delete files from FileMaster ToPanel Setting folder")
     public void emptyFilesInToPanelSetting() throws IOException {
         delete = new Delete();
         int numberFiles = delete.emptyFolderSetting();
@@ -41,7 +41,7 @@ public class UBOTest_Publisher extends TestBase{
             Assert.fail();}
     }
 
-    //@Test(priority=2, groups={"Publisher_old","Publisher_new"})
+    @Test(priority=2, groups={"Publisher_old","Publisher_new"}, description="Opens RFAS and checks the Client Authorization")
     public void checkIfClientIsAuthorized() {
         rfas = new RFAS(getDriverRFAS());
          int client_RFAS = 0;
@@ -53,7 +53,7 @@ public class UBOTest_Publisher extends TestBase{
          Assert.assertEquals( client_RFAS,1);
     }
 
-    //@Test(priority=3, groups={"Publisher_old","Publisher_new"})
+    @Test(priority=3, groups={"Publisher_old","Publisher_new"}, description="Opening Publisher")
     public void checkIfPublisherOpensCorrectly()  {
         setUpPublisher();
         p = new Publisher(getDriverPub());
@@ -68,7 +68,7 @@ public class UBOTest_Publisher extends TestBase{
         Assert.assertEquals(title_Publisher,"Publisher");
     }
 
-    //@Test(priority=4, groups={"Publisher_old","Publisher_new"})
+    @Test(priority=4, groups={"Publisher_old","Publisher_new"}, description="Opening Signals Admin and Priority List Action executed")
     public void performPriorityListAction() {
         String title_SignalsAdmin = null;
         try {
@@ -85,7 +85,7 @@ public class UBOTest_Publisher extends TestBase{
         getDriverSignalsAdmin().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
      }
 
-    //@Test(priority=5, groups={"Publisher_old","Publisher_new"})
+    @Test(priority=5, groups={"Publisher_old","Publisher_new"}, description="Publishing the households number specify in the Excel Sheet ")
     public void checkIfPublishHouseHoldsProcessIsCorrect()  {
         String title_GroupAdmin = null;
         try {
@@ -103,7 +103,7 @@ public class UBOTest_Publisher extends TestBase{
         Assert.assertEquals(title_GroupAdmin,"GroupAdmin");
     }
 
-    //@Test(priority=6, groups={"Publisher_old","Publisher_new"})
+    @Test(priority=6, groups={"Publisher_old","Publisher_new"}, description="Opening System View to read the Publisher Logs")
     public void readLogsFromSystemView() throws Exception {
         System.out.println("##########System View############");
         String title_sv = null;
@@ -119,7 +119,7 @@ public class UBOTest_Publisher extends TestBase{
         Assert.assertEquals(title_sv,"SystemView");
     }
 
-    //@Test(priority=7, groups={"Publisher_old"})
+    @Test(priority=7, groups={"Publisher_old"},timeOut = 50000, description="Copying files from ToPanel Setting to a Test folder for comparation of old version")
     public void copyGeneratedFilesToOldTestVersionFolder() throws Exception {
         System.out.println("Inside copyGeneratedFiles() method");
          copy = new CopyFiles();
@@ -129,7 +129,7 @@ public class UBOTest_Publisher extends TestBase{
         Assert.assertTrue(t);
     }
 
-    //@Test(priority=7, groups={"Publisher_new"})
+    @Test(priority=7, groups={"Publisher_new"},timeOut = 50000, description="Copying files from ToPanel Setting to a Test folder for comparation of new version")
     public void copyGeneratedFilesToNewTestVersionFolder() throws Exception {
         System.out.println("Inside copyGeneratedFiles() method");
         copy = new CopyFiles();
@@ -141,14 +141,14 @@ public class UBOTest_Publisher extends TestBase{
 
     //ALWAYS REMEMBER TO NAME:
     //C:\UNITAM SW\Publisher the old version and C:\TEST\PublisherXXX the new version where XXX is the new version, ex 117
-    //@Test(priority=8, groups={"Publisher_old"})
+    @Test(priority=8, groups={"Publisher_old"}, description="Renaming old and new Publisher versions in the UNITAM SW folder")
     public void verifyDownloadNewApp() throws Exception {
         System.out.println("Inside verifyDownloadNewApp() method");
         copy = new CopyFiles();
         copy.installNewApp(getDriverPub());
     }
 
-    //@Test(priority=9, groups={"Publisher_old",})
+    @Test(priority=9, groups={"Publisher_old"}, description="Closing all applications")
     public void closeAllApps() throws InterruptedException {
         System.out.println("WinMerge closed...");
         switchToWindowSA(getDriverSignalsAdmin());
@@ -170,7 +170,7 @@ public class UBOTest_Publisher extends TestBase{
         System.out.println("App closed!!!!");
     }
 
-    //@Test(groups={"Publisher_old"})
+    //@Test(groups={"Publisher_old"})   //TODO
     public void closeLCWatchDog(){
         switchToWindowRFAS(getDriverRFAS());
         tearDownRFAS();
@@ -188,7 +188,7 @@ public class UBOTest_Publisher extends TestBase{
     }
 
     //THE LAST TEST AFTER BOTH VERS APPS PUBLISHED!!
-    //@Test(priority=8, groups={"Publisher_new"})
+    @Test(priority=8, groups={"Publisher_new"}, description="Opening WinMerge application and create the comparation report")
     public void verifyCompareFiles() throws Exception {
             wm = new WinMerge(getDriverWinMerge());
             //int files = wm.selectFilesToCompare();
@@ -200,7 +200,7 @@ public class UBOTest_Publisher extends TestBase{
                 Assert.fail();}
     }
 
-    //@Test(priority=9, groups={"Publisher_new"})
+    @Test(priority=9, groups={"Publisher_new"}, description="Moves the old publisher version from UNITAM SW folder to other folder")
     public void actionsWithFiles() throws IOException {
         move = new MoveFiles(getDriverWinMerge());
         //int files = move.moveFiles();

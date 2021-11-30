@@ -71,10 +71,6 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>TestRunner.xml</suiteXmlFile>
                     </suiteXmlFiles>
-                    <environmentVariables>
-                        <env>${env}</env>
-                        <browser>${browser}</browser>
-                    </environmentVariables>
                   </configuration>
             </plugin>
         </plugins>
