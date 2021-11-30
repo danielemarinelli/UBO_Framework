@@ -233,6 +233,16 @@ public class TestBase {
             for (int i = 0; i < 3; i++) { driverWinLC.findElementByName("Yes").click(); }
         }
 
+        public void tearDownLC_WD(){
+        System.out.println("---> closing LC & WatchDog");
+        //getElementCoordinates(driverWinLC.findElementByName("File"));
+        driverWinLC.findElementByName("File").click();
+        Actions a = new Actions(driverWinLC);
+        a.moveToElement(driverWinLC.findElementByName("File"),10,75).click().build().perform();
+            for (int i = 0; i < 3; i++) { driverWinLC.findElementByName("Yes").click(); }
+        System.out.println();
+    }
+
         public WebElement waitTillButtonIsDisplayed(WindowsDriver wd, WebElement ele) {
             WebDriverWait wait = new WebDriverWait(wd, 40);
             return wait.until(ExpectedConditions.elementToBeClickable(ele));
