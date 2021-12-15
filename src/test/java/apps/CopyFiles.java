@@ -1,7 +1,6 @@
 package apps;
 
 import core.excelUserData;
-import io.appium.java_client.windows.WindowsDriver;
 import tests.TestBase;
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,7 +13,6 @@ public class CopyFiles extends TestBase {
 
     public static List<Map<String,String>> app_new_vers;
 
-    //C:\TEST\OldAppVersion ; C:\TEST\NewAppVersion
     public boolean copyFilesFromAppFolderToOldTestFolder(String v) throws Exception {
             app_new_vers = excelUserData.getFoldersNamesFromExcelSheet();
             ProcessBuilder ps = new ProcessBuilder("xcopy", "C:\\UNITAM\\FileMaster\\Files\\HHSettings\\ToPanel\\Settings", app_new_vers.get(0).get("OldFolderApp"));
@@ -30,13 +28,8 @@ public class CopyFiles extends TestBase {
         return true;
     }
 
-    public void installNewApp(WindowsDriver driverPub) throws Exception {
-        driverPub.close();
-        driverPub.findElementByAccessibilityId("6").click();
-        Thread.sleep(1000);
-        driverPub.findElementByAccessibilityId("6").click();
-
-        Thread.sleep(3000);
+    public boolean installNewApp() throws Exception {
+        System.out.println("rename of apps in unitamsw");
         app_new_vers = excelUserData.getFoldersNamesFromExcelSheet();
         File oldPub = new File("C:\\UNITAM SW\\Publisher.exe");
         File oldPub1 = new File(app_new_vers.get(0).get("RenamePublisherVersion"));
@@ -49,7 +42,7 @@ public class CopyFiles extends TestBase {
         boolean renamed1 = newPub1.renameTo(newPub);
         if (renamed1) { System.out.println("File renamed to " + newPub.getPath()); }
         else { System.out.println("Error renaming file " + newPub1.getPath()); }
-
+        return (renamed && renamed1);
     }
 
     public boolean copyFilesFromAppFolderToNewTestFolder() throws Exception {

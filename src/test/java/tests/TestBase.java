@@ -40,12 +40,11 @@ public class TestBase {
     public WindowsDriver driverWinGA=null;
     private WindowsDriver driverWinSA=null;
     private WindowsDriver driverWinSV=null;
-    private WindowsDriver driverWinSM=null;
     private TestReporter reporter;
     String date = null;
 
 
-    @BeforeSuite(groups={"Publisher_new"})
+    @BeforeSuite(groups={"Publisher"})
     public void openWinMergeApp() {
         DesiredCapabilities WM = new DesiredCapabilities();
         WM.setCapability("app", "C:\\Program Files\\WinMerge\\WinMergeU.exe");
@@ -63,25 +62,23 @@ public class TestBase {
         }
     }
 
-
-    @BeforeSuite(groups={"Publisher_old","Publisher_new"})
-    public void setUpLC_FM_RFAS() throws IOException {
+    @BeforeSuite(groups={"Publisher"})
+    public void setUpLC() throws IOException {
         DesiredCapabilities LC = new DesiredCapabilities();
         LC.setCapability("app", "C:\\UNITAM SW\\LogCollector.exe");
         LC.setCapability("platformName", "Windows_LC");
         LC.setCapability("deviceName", "WindowsPC_LC");
-        try {
+        //try {
             driverWinLC = new WindowsDriver(new URL("http://127.0.0.1:4723/"), LC);
             Set<String> windowsLC = driverWinLC.getWindowHandles();
             System.out.println(windowsLC);
         driverWinLC.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         Assert.assertNotNull(driverWinLC,"Log Collector didn't open");
 
-        DesiredCapabilities FM = new DesiredCapabilities();
+        /*DesiredCapabilities FM = new DesiredCapabilities();
         FM.setCapability("app","C:\\UNITAM SW\\FileMaster.exe");
         FM.setCapability("platformName","Windows_FM");
         FM.setCapability("deviceName","WindowsPC_FM");
-        //try {
         driverWinFM = new WindowsDriver(new URL("http://127.0.0.1:4723/"),FM);
         Set<String> windowsFM = driverWinFM.getWindowHandles();
         System.out.println(windowsFM);
@@ -92,16 +89,45 @@ public class TestBase {
         RFAS.setCapability("app","C:\\UNITAM SW\\RFAS.exe");
         RFAS.setCapability("platformName","Windows_RFAS");
         RFAS.setCapability("deviceName","WindowsPC_RFAS");
-
-            driverWinRFAS = new WindowsDriver(new URL("http://127.0.0.1:4723/"),RFAS);
-            Assert.assertNotNull(driverWinRFAS,"RFAS didn't open");
+        driverWinRFAS = new WindowsDriver(new URL("http://127.0.0.1:4723/"),RFAS);
+        Assert.assertNotNull(driverWinRFAS,"RFAS didn't open");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
         Set<String> windowsRFAS = driverWinRFAS.getWindowHandles();
         System.out.println(windowsRFAS);
         driverWinRFAS.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+         */
         reporter = new TestReporter();
+    }
+
+    public void setUpRFAS()  {
+        try {
+        DesiredCapabilities RFAS = new DesiredCapabilities();
+        RFAS.setCapability("app","C:\\UNITAM SW\\RFAS.exe");
+        RFAS.setCapability("platformName","Windows_RFAS");
+        RFAS.setCapability("deviceName","WindowsPC_RFAS");
+        driverWinRFAS = new WindowsDriver(new URL("http://127.0.0.1:4723/"),RFAS);
+        Assert.assertNotNull(driverWinRFAS,"RFAS didn't open");
+    } catch (MalformedURLException e) {
+        e.printStackTrace();
+    }
+    Set<String> windowsRFAS = driverWinRFAS.getWindowHandles();
+        System.out.println(windowsRFAS);
+        driverWinRFAS.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    }
+
+    public void setUpFM() throws MalformedURLException {
+        DesiredCapabilities FM = new DesiredCapabilities();
+        FM.setCapability("app","C:\\UNITAM SW\\FileMaster.exe");
+        FM.setCapability("platformName","Windows_FM");
+        FM.setCapability("deviceName","WindowsPC_FM");
+        driverWinFM = new WindowsDriver(new URL("http://127.0.0.1:4723/"),FM);
+        Set<String> windowsFM = driverWinFM.getWindowHandles();
+        System.out.println(windowsFM);
+        driverWinFM.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        Assert.assertNotNull(driverWinFM,"File Master didn't open");
     }
 
     public void setUpPublisher() {
@@ -168,22 +194,6 @@ public class TestBase {
         //driverWinGA.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
-    public void setUpSystemManager() {
-        DesiredCapabilities SystemManager = new DesiredCapabilities();
-        SystemManager.setCapability("app", "C:\\Windows\\System32\\Taskmgr.exe");
-        SystemManager.setCapability("platformName", "Windows_SystemManager");
-        SystemManager.setCapability("deviceName", "WindowsPC_SystemManager");
-        try {
-            driverWinSM = new WindowsDriver(new URL("http://127.0.0.1:4723/"), SystemManager);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        Set<String> windowsSM = driverWinSM.getWindowHandles();
-        Assert.assertNotNull(driverWinSM,"SystemManager didn't open");
-        System.out.println("SM handler: "+windowsSM);
-        //driverWinGA.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-    }
-
     public WindowsDriver getDriverLC() { return driverWinLC;}
     public WindowsDriver getDriverFM() { return driverWinFM;}
     public WindowsDriver getDriverRFAS() { return driverWinRFAS;}
@@ -192,25 +202,32 @@ public class TestBase {
     public WindowsDriver getDriverSignalsAdmin() { return driverWinSA;}
     public WindowsDriver getDriverWinMerge() { return driverWinMerge;}
     public WindowsDriver getDriverSV() { return driverWinSV;}
-    public WindowsDriver getDriverSM() { return driverWinSM;}
 
-    public void tearDownSA() {
+        public void tearDownSA() {
         driverWinSA.close();
         driverWinSA.findElementByName("Yes").click();
     }
+
         //@AfterSuite
         public void tearDownFM(){
         driverWinFM.close();
             for (int i = 0; i < 2; i++) { driverWinFM.findElementByName("Yes").click(); }
         }
 
-    @AfterMethod(groups={"Publisher_old","Publisher_new"})
+    @AfterMethod(groups={"Publisher"})
     public void testDone(){System.out.println("##########Test is over, proceed with next one...");}
 
-    @BeforeMethod(groups={"Publisher_old","Publisher_new"})
+    @BeforeMethod(groups={"Publisher"})
     public void startTest(){System.out.println("#########Test is starting...");}
 
     public void tearDownSV() { driverWinSV.close(); }
+
+    public void tearDownPub() throws InterruptedException {
+        driverWinPub.close();
+        driverWinPub.findElementByAccessibilityId("6").click();
+        Thread.sleep(1000);
+        driverWinPub.findElementByAccessibilityId("6").click();
+    }
 
     public void tearDownWinMerge() { driverWinMerge.close(); }
 
@@ -293,14 +310,6 @@ public class TestBase {
         }
     }
 
-    public void switchToWindowSM(WindowsDriver driverWinSM) {
-        Set<String> windows = driverWinSM.getWindowHandles();
-        for(String w : windows) {
-            driverWinSM.switchTo().window(w);
-            System.out.println("---> SystemManager window: "+w);
-        }
-    }
-
     public void switchToWindowRFAS(WindowsDriver driverWinRFAS) {
         Set<String> windows = driverWinRFAS.getWindowHandles();
         for(String w : windows) {
@@ -325,7 +334,7 @@ public class TestBase {
         }
     }
 
-    @BeforeMethod(groups={"Publisher_old","Publisher_new"})
+    @BeforeMethod(groups={"Publisher"})
     public void initTestReport(Method method){ reporter.startReporting(method.getName()); }
 
     public TestReporter reporter(){
@@ -335,16 +344,16 @@ public class TestBase {
         return null;
     }
 
-    @AfterMethod(groups={"Publisher_old","Publisher_new"})
+    @AfterMethod(groups={"Publisher"})
     public void closeReport(){ reporter.endReporting(); }
 
-    @AfterSuite(groups={"Publisher_old","Publisher_new"})
+    @AfterSuite(groups={"Publisher"})
     public void clearReport(){
         reporter.flushReport();
     }
 
 
-    @AfterMethod(groups={"Publisher_old","Publisher_new"})
+    @AfterMethod(groups={"Publisher"})
     public void testStatusInExtentReport(ITestResult result) {
         if(ITestResult.FAILURE == result.getStatus()){
             reporter().report(LogStatus.FAIL,"Failed test is: "+result.getName());
@@ -356,48 +365,48 @@ public class TestBase {
         }
     }
 
-    @AfterMethod(groups={"Publisher_old","Publisher_new"})
+    @AfterMethod(groups={"Publisher"})
     public void takeScreenShotIfFailurePublisherTests(ITestResult result) throws Exception {
-        if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("checkIfClientIsAuthorized")) {
+        if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("checkIfClientIsAuthorized_OLD")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
             File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
             //File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
             //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
-            email.sendEmailForPublisherFailure("checkIfClientIsAuthorized");
-        } else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("checkIfPublishHouseHoldsProcessIsCorrect")) {
+            email.sendEmailForPublisherFailure("checkIfClientIsAuthorized_OLD");
+        } else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("checkIfPublishHouseHoldsProcessIsCorrect_OLD")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinGA);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
             File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
             //File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
             //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
-            email.sendEmailForPublisherFailure("checkIfPublishHouseHoldsProcessIsCorrect");
-        } else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("performPriorityListAction")) {
+            email.sendEmailForPublisherFailure("checkIfPublishHouseHoldsProcessIsCorrect_OLD");
+        } else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("performPriorityListAction_OLD")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinSA);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
             File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
             //File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
             //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
-            email.sendEmailForPublisherFailure("performPriorityListAction");
-        } else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("readLogsFromSystemView")) {
+            email.sendEmailForPublisherFailure("performPriorityListAction_OLD");
+        } else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("readLogsFromSystemView_OLD")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinSV);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
             File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
             //File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
             //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
-            email.sendEmailForPublisherFailure("readLogsFromSystemView");
-        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("checkIfPublisherOpensCorrectly")) {
+            email.sendEmailForPublisherFailure("readLogsFromSystemView_OLD");
+        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("checkIfPublisherOpensCorrectly_OLD")) {
             TakesScreenshot camera =((TakesScreenshot)driverWinPub);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
             File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
             //File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
             //File DestFile = new File("./src/main/screenShots/FAIL__"+result.getName()+"__"+formatDate()+".png");
             FileHandler.copy(screenShot,DestFile);
-            email.sendEmailForPublisherFailure("checkIfPublisherOpensCorrectly");
+            email.sendEmailForPublisherFailure("checkIfPublisherOpensCorrectly_OLD");
         }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("verifyCompareFiles")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinPub);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
@@ -406,15 +415,16 @@ public class TestBase {
             //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
             email.sendEmailForPublisherFailure("verifyCompareFiles");
-        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("copyGeneratedFiles")) {
-            TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
-            File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
-            File screenShot = camera.getScreenshotAs(OutputType.FILE);
+        }//else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("copyGeneratedFiles")) {
+         //   TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
+         //   File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+         //   File screenShot = camera.getScreenshotAs(OutputType.FILE);
             //File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
             //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
-            FileHandler.copy(screenShot, DestFile);
-            email.sendEmailForPublisherFailure("copyGeneratedFiles");
-        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("verifyDownloadNewApp")) {
+         //   FileHandler.copy(screenShot, DestFile);
+         //   email.sendEmailForPublisherFailure("copyGeneratedFiles");
+        //}
+        else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("verifyDownloadNewApp")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinLC);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
             File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
@@ -434,34 +444,120 @@ public class TestBase {
             TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
             File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
-            //File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
-            //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
             email.sendEmailForPublisherFailure("verifyCompareFiles");
-        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("actionsWithFiles")) {
-            TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
-            File screenShot = camera.getScreenshotAs(OutputType.FILE);
-            File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
-            //File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
-            //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
-            FileHandler.copy(screenShot, DestFile);
-            email.sendEmailForPublisherFailure("actionsWithFiles");
+        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("movePublisherOldExeFile")) {
+            //TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
+            //File screenShot = camera.getScreenshotAs(OutputType.FILE);
+            //File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //FileHandler.copy(screenShot, DestFile);
+            email.sendEmailForPublisherFailure("movePublisherOldExeFile");
         }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("deleteFilesOfPreviousTest")) {
-            TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
-            File screenShot = camera.getScreenshotAs(OutputType.FILE);
-            File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
-            //File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
-            //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
-            FileHandler.copy(screenShot, DestFile);
+            //TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
+            //File screenShot = camera.getScreenshotAs(OutputType.FILE);
+            //File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //FileHandler.copy(screenShot, DestFile);
             email.sendEmailForPublisherFailure("deleteFilesOfPreviousTest");
         }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("emptyFilesInToPanelSetting")) {
+            //TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
+            //File screenShot = camera.getScreenshotAs(OutputType.FILE);
+            //File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //FileHandler.copy(screenShot, DestFile);
+            email.sendEmailForPublisherFailure("emptyFilesInToPanelSetting");
+        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("getTPIVersionBeforeRegressionStarts")) {
+            //TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
+            //File screenShot = camera.getScreenshotAs(OutputType.FILE);
+            //File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //FileHandler.copy(screenShot, DestFile);
+            email.sendEmailForPublisherFailure("getTPIVersionBeforeRegressionStarts");
+        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("verifyRenameFileMasterAndUnzipFiles_OLD")) {
+            //TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
+            //File screenShot = camera.getScreenshotAs(OutputType.FILE);
+            //File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //FileHandler.copy(screenShot, DestFile);
+            email.sendEmailForPublisherFailure("verifyRenameFileMasterAndUnzipFiles_OLD");
+        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("eraseOldFileMasterFolder_OLD")) {
+            //TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
+            //File screenShot = camera.getScreenshotAs(OutputType.FILE);
+            //File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //FileHandler.copy(screenShot, DestFile);
+            email.sendEmailForPublisherFailure("eraseOldFileMasterFolder_OLD");
+        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("verifyChangingTagInTestRunnerXML_ForNewVersion")) {
+            //TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
+            //File screenShot = camera.getScreenshotAs(OutputType.FILE);
+            //File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //FileHandler.copy(screenShot, DestFile);
+            email.sendEmailForPublisherFailure("verifyChangingTagInTestRunnerXML_ForNewVersion");
+        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("verifyChangingTagInTestRunnerXML_ForOldVersion")) {
+            //TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
+            //File screenShot = camera.getScreenshotAs(OutputType.FILE);
+            //File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //FileHandler.copy(screenShot, DestFile);
+            email.sendEmailForPublisherFailure("verifyChangingTagInTestRunnerXML_ForOldVersion");
+        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("copyGeneratedFilesToOldTestVersionFolder")) {
+            //TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
+            //File screenShot = camera.getScreenshotAs(OutputType.FILE);
+            //File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //FileHandler.copy(screenShot, DestFile);
+            email.sendEmailForPublisherFailure("copyGeneratedFilesToOldTestVersionFolder");
+        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("verifyRenameFileMasterAndUnzipFiles_NEW")) {
+            //TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
+            //File screenShot = camera.getScreenshotAs(OutputType.FILE);
+            //File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //FileHandler.copy(screenShot, DestFile);
+            email.sendEmailForPublisherFailure("verifyRenameFileMasterAndUnzipFiles_NEW");
+        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("eraseOldFileMasterFolder_NEW")) {
+            //TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
+            //File screenShot = camera.getScreenshotAs(OutputType.FILE);
+            //File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //FileHandler.copy(screenShot, DestFile);
+            email.sendEmailForPublisherFailure("eraseOldFileMasterFolder_NEW");
+        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("checkIfClientIsAuthorized_NEW")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
             File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
             //File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
             //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
-            email.sendEmailForPublisherFailure("emptyFilesInToPanelSetting");
+            email.sendEmailForPublisherFailure("checkIfClientIsAuthorized_NEW");
+        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("checkIfPublisherOpensCorrectly_NEW")) {
+            TakesScreenshot camera =((TakesScreenshot)driverWinPub);
+            File screenShot = camera.getScreenshotAs(OutputType.FILE);
+            File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //File DestFile = new File("./src/main/screenShots/FAIL__"+result.getName()+"__"+formatDate()+".png");
+            FileHandler.copy(screenShot,DestFile);
+            email.sendEmailForPublisherFailure("checkIfPublisherOpensCorrectly_NEW");
+        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("performPriorityListAction_NEW")) {
+            TakesScreenshot camera = ((TakesScreenshot) driverWinSA);
+            File screenShot = camera.getScreenshotAs(OutputType.FILE);
+            File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            FileHandler.copy(screenShot, DestFile);
+            email.sendEmailForPublisherFailure("performPriorityListAction_NEW");
+        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("checkIfPublishHouseHoldsProcessIsCorrect_NEW")) {
+            TakesScreenshot camera = ((TakesScreenshot) driverWinGA);
+            File screenShot = camera.getScreenshotAs(OutputType.FILE);
+            File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            FileHandler.copy(screenShot, DestFile);
+            email.sendEmailForPublisherFailure("checkIfPublishHouseHoldsProcessIsCorrect_NEW");
+        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("readLogsFromSystemView_NEW")) {
+            TakesScreenshot camera = ((TakesScreenshot) driverWinSV);
+            File screenShot = camera.getScreenshotAs(OutputType.FILE);
+            File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            FileHandler.copy(screenShot, DestFile);
+            email.sendEmailForPublisherFailure("readLogsFromSystemView_NEW");
+        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("copyGeneratedFilesToNewTestVersionFolder")) {
+            //TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
+            //File screenShot = camera.getScreenshotAs(OutputType.FILE);
+            //File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
+            //FileHandler.copy(screenShot, DestFile);
+            email.sendEmailForPublisherFailure("copyGeneratedFilesToNewTestVersionFolder");
         }
     }
 

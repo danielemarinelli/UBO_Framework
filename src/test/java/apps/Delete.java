@@ -16,14 +16,20 @@ public class Delete extends TestBase {
     public int deleteFiles() throws Exception {
         System.out.println("@@@ DELETING FOLDERS BEFORE STARTING THE TESTS @@@");
         app_folders = excelUserData.getFoldersNamesFromExcelSheet();
+        //FileUtils.cleanDirectory(new File("C:\\TEST\\NewAppVersion"));
+        //FileUtils.cleanDirectory(new File("C:\\TEST\\OldAppVersion"));
         FileUtils.cleanDirectory(new File(app_folders.get(0).get("NewFolderApp")));
         FileUtils.cleanDirectory(new File(app_folders.get(0).get("OldFolderApp")));
-        Thread.sleep(2000);
+        //Thread.sleep(2000);
+        //FileUtils.cleanDirectory(new File("C:\\TEST\\Report"));
         FileUtils.cleanDirectory(new File(app_folders.get(0).get("Report")));
         FileUtils.cleanDirectory(new File("C:\\TEST\\old_EXE"));
         FileUtils.cleanDirectory(new File("C:\\TEST\\screenShots"));
         FileUtils.cleanDirectory(new File("C:\\UNITAM\\FileMaster\\Files\\HHSettings\\ToPanel\\Settings"));
         System.out.println("All folders are empty");
+        //int n = Objects.requireNonNull(new File("C:\\TEST\\NewAppVersion").list()).length;
+        //int o = Objects.requireNonNull(new File("C:\\TEST\\OldAppVersion").list()).length;
+        //int r = Objects.requireNonNull(new File("C:\\TEST\\Report").list()).length;
         int n = Objects.requireNonNull(new File(app_folders.get(0).get("NewFolderApp")).list()).length;
         int o = Objects.requireNonNull(new File(app_folders.get(0).get("OldFolderApp")).list()).length;
         int r = Objects.requireNonNull(new File(app_folders.get(0).get("Report")).list()).length;

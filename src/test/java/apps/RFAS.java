@@ -21,6 +21,9 @@ public class RFAS extends TestBase {
 
     public int setAuthorization() throws Exception {
         System.out.println("Click on Logs Client TAB of the RFAS app");
+        //Thread.sleep(3000);
+        //switchToWindowRFAS(getDriverRFAS());
+        Thread.sleep(3000);
         driverWinRFAS.findElementByName("Log Clients").click();
         Thread.sleep(2000);
         List num_auth_cli = driverWinRFAS.findElementsByAccessibilityId("LCAuthorizedClientSortableListView");

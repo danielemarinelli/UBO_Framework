@@ -75,7 +75,6 @@ public class excelUserData {
         return emailInfo;
     }
 
-
     public static List<Map<String, String>> getFoldersNamesFromExcelSheet() throws IOException {
         List<Map<String,String>> FoldersInfo=null;
         Map<String,String> testData=null;
@@ -105,6 +104,35 @@ public class excelUserData {
             FoldersInfo.add(testData);
         }
         return FoldersInfo;  //TESTDATA FOR ALL ROWS
+    }
+
+    public static List<Map<String, String>> getCommonFoldersNames() throws IOException {
+        List<Map<String,String>> FoldersInfo=null;
+        Map<String,String> testData=null;
+        FileInputStream fileInputStream=new FileInputStream("C:\\TEST\\dataExcel\\Files_Folders.xlsx");
+        Workbook workbook=new XSSFWorkbook(fileInputStream);
+        Sheet sheet=workbook.getSheetAt(0);
+        int lastRowNumber=sheet.getLastRowNum();
+        int lastColNumber=sheet.getRow(0).getLastCellNum();
+        List list=new ArrayList();
+        for(int i=0; i<lastColNumber;i++){
+            Row row=sheet.getRow(4);
+            Cell cell=row.getCell(i);
+            String rowHeader = cell.getStringCellValue().trim();
+            list.add(rowHeader);
+        }
+        FoldersInfo=new ArrayList<Map<String,String>>();
+        for (int j=1;j<=lastRowNumber;j++){
+            Row row=sheet.getRow(j);
+            testData=new TreeMap<String, String>(String.CASE_INSENSITIVE_ORDER);
+            for(int k=0;k<lastColNumber;k++){
+                Cell cell=row.getCell(k);
+                String colValue = getCellDataAsString((XSSFCell) cell.getRow().getCell(k));
+                testData.put((String) list.get(k),colValue);
+            }
+            FoldersInfo.add(testData);
+        }
+        return FoldersInfo;
     }
 
 
