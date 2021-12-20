@@ -34,8 +34,6 @@ public class SignalAdmin extends TestBase {
         System.out.println("handler here IN THE SECOND PAGE---> "+driverWinSA.getWindowHandle());
         String title[] = driverWinSA.getTitle().split(" ");
         Thread.sleep(10000);
-        //WindowsDriverWait wait = new WebDriverWait(driverWinSA, 40);
-        //wait.until(ExpectedConditions.visibilityOf(driverWinSA.findElementByName("Lock")));
         driverWinSA.findElementByName("Lock").click();
         driverWinSA.findElementByAccessibilityId("1328").click();//Publish region & CI rules button
         System.out.println("Clicked on button 'Publish region & CI rules'...");

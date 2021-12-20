@@ -15,6 +15,8 @@ public class CopyFiles extends TestBase {
 
     public boolean copyFilesFromAppFolderToOldTestFolder(String v) throws Exception {
             app_new_vers = excelUserData.getFoldersNamesFromExcelSheet();
+            File theDir = new File(app_new_vers.get(0).get("OldFolderApp"));
+            if (!theDir.exists()){theDir.mkdirs();}
             ProcessBuilder ps = new ProcessBuilder("xcopy", "C:\\UNITAM\\FileMaster\\Files\\HHSettings\\ToPanel\\Settings", app_new_vers.get(0).get("OldFolderApp"));
             ps.redirectErrorStream(true);
             Process pr = ps.start();
@@ -47,6 +49,8 @@ public class CopyFiles extends TestBase {
 
     public boolean copyFilesFromAppFolderToNewTestFolder() throws Exception {
         app_new_vers = excelUserData.getFoldersNamesFromExcelSheet();
+        File theDir = new File(app_new_vers.get(0).get("NewFolderApp"));
+        if (!theDir.exists()){theDir.mkdirs();}
         ProcessBuilder ps = new ProcessBuilder("xcopy", "C:\\UNITAM\\FileMaster\\Files\\HHSettings\\ToPanel\\Settings", app_new_vers.get(0).get("NewFolderApp"));
         ps.redirectErrorStream(true);
         Process pr = ps.start();

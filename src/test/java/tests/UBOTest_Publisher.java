@@ -27,13 +27,11 @@ public class UBOTest_Publisher extends TestBase{
 
 
     //CLEANING ACTION with BOTH VERSIONS and UNZIP files
-    @Test(priority=1, groups={"Publisher"}, description="Unzipping daily/common files into FileMaster folder")  //groups={"Publisher_old", "Publisher_new"},
+    @Test(priority=1, groups={"Publisher"}, description="Unzipping daily/common files into FileMaster folder")
     public void verifyRenameFileMasterAndUnzipFiles_OLD() throws Exception {
         files = new FilesActions();
-        //fm = new FileMaster();
             files.renameFileMasterFolder();  // DOESN'T RENAME FILE MASTER FOLDER if already exists!!
             System.out.println("#### Performed action renamed fileMaster folder...");
-            //fm.setUpFileMaster();
             setUpFM();
             files.createFoldersToUnzipCommonData();
             Thread.sleep(1000);
@@ -48,7 +46,7 @@ public class UBOTest_Publisher extends TestBase{
             Assert.fail();}
     }
 
-    @Test(priority=2, groups={"Publisher"}, description="Delete TEST files from previous Test execution")   //groups={"Publisher_old"},
+    @Test(priority=2, groups={"Publisher"}, description="Delete TEST files from previous Test execution")
     public void deleteFilesOfPreviousTest() throws Exception {
         delete = new Delete();
         int numberFiles = delete.deleteFiles();
@@ -59,7 +57,7 @@ public class UBOTest_Publisher extends TestBase{
     }
 
     //LAST TEST TO PERFORM REMOVE FOLDER FileMaster_OLD at END regression Old and New
-    @Test(priority=3, groups={"Publisher"}, description="Erase FileMaster OLD Folder")   //groups={"Publisher_old","Publisher_new"},
+    @Test(priority=3, groups={"Publisher"}, description="Erase FileMaster OLD Folder")
     public void eraseOldFileMasterFolder_OLD(){
         files = new FilesActions();
         System.out.println(".......DELETING FileMaster_OLD folder........");
@@ -68,7 +66,7 @@ public class UBOTest_Publisher extends TestBase{
         Assert.assertEquals(f,1);
     }
 
-    @Test(priority=4, groups={"Publisher"}, description="Opens RFAS and checks the Client Authorization with OLD Publisher version")  // groups={"Publisher_old","Publisher_new"}
+    @Test(priority=4, groups={"Publisher"}, description="Opens RFAS and checks the Client Authorization with OLD Publisher version")
     public void checkIfClientIsAuthorized_OLD() throws Exception {
         setUpRFAS();
         rfas = new RFAS(getDriverRFAS());
@@ -83,7 +81,7 @@ public class UBOTest_Publisher extends TestBase{
         Assert.assertEquals(client_RFAS,1);
     }
 
-    @Test(priority=5, groups={"Publisher"}, description="Opening OLD Publisher version")   //groups={"Publisher_old","Publisher_new"},
+    @Test(priority=5, groups={"Publisher"}, description="Opening OLD Publisher version")
     public void checkIfPublisherOpensCorrectly_OLD()  {
         setUpPublisher();
         p = new Publisher(getDriverPub());
@@ -98,7 +96,7 @@ public class UBOTest_Publisher extends TestBase{
         Assert.assertEquals(title_Publisher,"Publisher");
     }
 
-    @Test(priority=6, groups={"Publisher"}, description="Opening Signals Admin and Priority List Action executed with OLD Publisher version")  //groups={"Publisher_old","Publisher_new"},
+    @Test(priority=6, groups={"Publisher"}, description="Opening Signals Admin and Priority List Action executed with OLD Publisher version")
     public void performPriorityListAction_OLD() {
         String title_SignalsAdmin = null;
         try {
@@ -115,7 +113,7 @@ public class UBOTest_Publisher extends TestBase{
         getDriverSignalsAdmin().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
-    @Test(priority=7, groups={"Publisher"}, description="Publishing with OLD version the households number specify in the Excel Sheet ")   //groups={"Publisher_old","Publisher_new"},
+    @Test(priority=7, groups={"Publisher"}, description="Publishing with OLD version the households number specify in the Excel Sheet ")
     public void checkIfPublishHouseHoldsProcessIsCorrect_OLD()  {
         String title_GroupAdmin = null;
         try {
@@ -133,7 +131,7 @@ public class UBOTest_Publisher extends TestBase{
         Assert.assertEquals(title_GroupAdmin,"GroupAdmin");
     }
 
-    @Test(priority=8, groups={"Publisher"}, description="Opening System View to read the OLD version Publisher Logs")   //groups={"Publisher_old","Publisher_new"},
+    @Test(priority=8, groups={"Publisher"}, description="Opening System View to read the OLD version Publisher Logs")
     public void readLogsFromSystemView_OLD() {
         System.out.println("##########System View############");
         String title_sv = null;
@@ -149,7 +147,7 @@ public class UBOTest_Publisher extends TestBase{
         Assert.assertEquals(title_sv,"SystemView");
     }
 
-    @Test(priority=9, groups={"Publisher"},timeOut = 50000, description="Copying files from ToPanel Setting to a Test folder for compare of old version")  //groups={"Publisher_old"},
+    @Test(priority=9, groups={"Publisher"},timeOut = 50000, description="Copying files from ToPanel Setting to a Test folder for compare of old version")
     public void copyGeneratedFilesToOldTestVersionFolder() throws Exception {
         System.out.println("Inside copyGeneratedFiles() method");
         copy = new CopyFiles();
@@ -158,7 +156,7 @@ public class UBOTest_Publisher extends TestBase{
         Assert.assertTrue(t);
     }
 
-    @Test(priority=10, groups={"Publisher"}, description="Closing all applications")    //groups={"Publisher_old"},
+    @Test(priority=10, groups={"Publisher"}, description="Closing all applications")
     public void closeAllApps() throws InterruptedException {
         //fm = new FileMaster();
         //System.out.println("WinMerge closed...");
@@ -186,13 +184,20 @@ public class UBOTest_Publisher extends TestBase{
         System.out.println("App closed except LC!!!!");
     }
 
-    @Test(priority=11, groups={"Publisher"}, description="Unzipping daily/common files into FileMaster folder")  //groups={"Publisher_old", "Publisher_new"},
+    @Test(priority=11, groups={"Publisher"}, description="Erase FileMaster OLD Folder to start with NEW Publisher Version")
+    public void eraseOldFileMasterFolder_NEW(){
+        files = new FilesActions();
+        System.out.println(".......DELETING FileMaster_OLD folder to start with NEW Publisher Version........");
+        int f = files.removeDirectory(new File("C:\\UNITAM\\FileMaster_OLD"));
+        System.out.println("@@@ Deleted FileMaster_OLD folder @@@");
+        Assert.assertEquals(f,1);
+    }
+
+    @Test(priority=12, groups={"Publisher"}, description="Unzipping daily/common files into FileMaster folder")
     public void verifyRenameFileMasterAndUnzipFiles_NEW() throws Exception {
         files = new FilesActions();
-        //fm = new FileMaster();
         files.renameFileMasterFolder();  // DOESN'T RENAME FILE MASTER FOLDER if already exists!!
         System.out.println("#### Renamed fileMaster folder to start test with NEW Publisher version...");
-        //fm.setUpFileMaster();
         setUpFM();
         files.createFoldersToUnzipCommonData();
         Thread.sleep(1000);
@@ -208,7 +213,7 @@ public class UBOTest_Publisher extends TestBase{
     }
 
     //FIRST ACTION with new VERSION (get TPI version of old Publisher)
-    @Test(priority=12,groups={"Publisher"}, description="Store TPI Version before regression starts")  //groups={"Publisher_new"},
+    @Test(priority=13,groups={"Publisher"}, description="Store TPI Version before regression starts")
     public void getTPIVersionBeforeRegressionStarts() throws Exception {
         System.out.println("TPI Version with OLD Publisher version....");
         files = new FilesActions();
@@ -223,7 +228,7 @@ public class UBOTest_Publisher extends TestBase{
     //C:\UNITAM SW\Publisher the old version and
     // C:\TEST\PublisherXXX the new version where XXX is the new version, ex 117
     //SECOND ACTION WITH NEW VERSION
-    @Test(priority=13, groups={"Publisher"}, description="Renaming old and new Publisher versions in the UNITAM SW folder")   //groups={"Publisher_new"},
+    @Test(priority=14, groups={"Publisher"}, description="Renaming old and new Publisher versions in the UNITAM SW folder")
     public void verifyDownloadNewApp() throws Exception {
         System.out.println("Inside verifyDownloadNewApp() method");
         copy = new CopyFiles();
@@ -234,7 +239,7 @@ public class UBOTest_Publisher extends TestBase{
 
     }
 
-    @Test(priority=14, groups={"Publisher"}, description="Delete files from FileMaster ToPanel Setting folder")        //groups={"Publisher_new"},
+    @Test(priority=15, groups={"Publisher"}, description="Delete files from FileMaster ToPanel Setting folder")
     public void emptyFilesInToPanelSetting() throws IOException {
         delete = new Delete();
         int numberFiles = delete.emptyFolderSetting();
@@ -244,16 +249,7 @@ public class UBOTest_Publisher extends TestBase{
             Assert.fail();}
     }
 
-    @Test(priority=15, groups={"Publisher"}, description="Erase FileMaster OLD Folder to start with NEW Publisher Version")   //groups={"Publisher_old","Publisher_new"},
-    public void eraseOldFileMasterFolder_NEW(){
-        files = new FilesActions();
-        System.out.println(".......DELETING FileMaster_OLD folder to start with NEW Publisher Version........");
-        int f = files.removeDirectory(new File("C:\\UNITAM\\FileMaster_OLD"));
-        System.out.println("@@@ Deleted FileMaster_OLD folder @@@");
-        Assert.assertEquals(f,1);
-    }
-
-    @Test(priority=16, groups={"Publisher"}, description="Opens RFAS and checks the Client Authorization with NEW Publisher version")  // groups={"Publisher_old","Publisher_new"}
+    @Test(priority=16, groups={"Publisher"}, description="Opens RFAS and checks the Client Authorization with NEW Publisher version")
     public void checkIfClientIsAuthorized_NEW() throws Exception {
         setUpRFAS();
         rfas = new RFAS(getDriverRFAS());
@@ -268,7 +264,7 @@ public class UBOTest_Publisher extends TestBase{
         Assert.assertEquals(client_RFAS,1);
     }
 
-    @Test(priority=17, groups={"Publisher"}, description="Opening NEW Publisher version")   //groups={"Publisher_old","Publisher_new"},
+    @Test(priority=17, groups={"Publisher"}, description="Opening NEW Publisher version")
     public void checkIfPublisherOpensCorrectly_NEW()  {
         setUpPublisher();
         p = new Publisher(getDriverPub());
@@ -283,7 +279,7 @@ public class UBOTest_Publisher extends TestBase{
         Assert.assertEquals(title_Publisher,"Publisher");
     }
 
-    @Test(priority=18, groups={"Publisher"}, description="Opening Signals Admin and Priority List Action executed with NEW Publisher version")  //groups={"Publisher_old","Publisher_new"},
+    @Test(priority=18, groups={"Publisher"}, description="Opening Signals Admin and Priority List Action executed with NEW Publisher version")
     public void performPriorityListAction_NEW() {
         String title_SignalsAdmin = null;
         try {
@@ -300,7 +296,7 @@ public class UBOTest_Publisher extends TestBase{
         getDriverSignalsAdmin().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
-    @Test(priority=19, groups={"Publisher"}, description="Publishing with NEW version the households number specify in the Excel Sheet ")   //groups={"Publisher_old","Publisher_new"},
+    @Test(priority=19, groups={"Publisher"}, description="Publishing with NEW version the households number specify in the Excel Sheet ")
     public void checkIfPublishHouseHoldsProcessIsCorrect_NEW()  {
         String title_GroupAdmin = null;
         try {
@@ -318,7 +314,7 @@ public class UBOTest_Publisher extends TestBase{
         Assert.assertEquals(title_GroupAdmin,"GroupAdmin");
     }
 
-    @Test(priority=20, groups={"Publisher"}, description="Opening System View to read the NEW version Publisher Logs")   //groups={"Publisher_old","Publisher_new"},
+    @Test(priority=20, groups={"Publisher"}, description="Opening System View to read the NEW version Publisher Logs")
     public void readLogsFromSystemView_NEW() {
         System.out.println("##########System View############");
         String title_sv = null;
@@ -334,7 +330,7 @@ public class UBOTest_Publisher extends TestBase{
         Assert.assertEquals(title_sv,"SystemView");
     }
 
-    @Test(priority=21, groups={"Publisher"},timeOut = 50000, description="Copying files from ToPanel Setting to a Test folder for comparation of new version")  //groups={"Publisher_new"}
+    @Test(priority=21, groups={"Publisher"},timeOut = 50000, description="Copying files from ToPanel Setting to a Test folder for comparation of new version")
     public void copyGeneratedFilesToNewTestVersionFolder() throws Exception {
         System.out.println("Inside copyGeneratedFiles() method");
         copy = new CopyFiles();
@@ -343,48 +339,36 @@ public class UBOTest_Publisher extends TestBase{
         Assert.assertTrue(t);
     }
 
-
-    //@Test(priority=10, groups={"Publisher_new"})  // TODO issue with renameTo() Publisher.ini
+    //@Test(priority=22, groups={"Publisher"})
     public void removeLinePublisherINI_AndCheckTPIVersion() throws Exception {
         files = new FilesActions();
-        switchToWindowPublisher(getDriverPub());
-        tearDownPub();
-        switchToWindowPublisher(getDriverRFAS());
-        tearDownRFAS();
-        switchToWindowPublisher(getDriverLC());
-        tearDownLC_WD();
+        files.eraseLineInFilePublisherINI();
         files.moveFile();
-        //files.eraseLineInFilePublisherINI();
-        p = new Publisher(getDriverPub());
-        p.openPublisherApp();
+        setUpPublisher();
+        Thread.sleep(4000);
         System.out.println("TPI Version after erasing the row in Publisher.ini file");
-
-        files = new FilesActions();
         versionTPIAfter = files.getTpiVersionFromPublisherINI();
         System.out.println("version tpi AFTER: "+versionTPIAfter);
-
         Assert.assertEquals(versionTPIAfter,versionTPIBefore);  // IF EQUAL DO COMPARE FILES WITH WINMERGE,
                                                                 // IF NOT EQUAL REGRESSIONS AGAIN WITH NEW TPI VERSION
     }
 
     //THE LAST TEST AFTER BOTH VERS APPS PUBLISHED!!
-    //groups={"Publisher_new"}, dependsOnMethods = {"removeLinePublisherINI_AndCheckTPIVersion"},
-    @Test(priority=22, groups={"Publisher"}, description="Opening WinMerge application and create the comparation report")
+    // dependsOnMethods = {"removeLinePublisherINI_AndCheckTPIVersion"},
+    @Test(priority=23, groups={"Publisher"}, description="Opening WinMerge application and create the comparation report")
     public void verifyCompareFiles() throws Exception {
         wm = new WinMerge(getDriverWinMerge());
-        //int files = wm.selectFilesToCompare();
-        //int files = wm.generateReportToSend();
         int files = wm.generateReportToSend(ArrayPublisherVersion[3]);
+        System.out.println("VERSION TPI WITH OLD VERSION PUBLISHER IS: -------> " +versionTPIBefore);
         if(files>0){
             Assert.assertTrue(true);
         }else{
             Assert.fail();}
     }
 
-    @Test(priority=23, groups={"Publisher"}, description="Moves the old publisher version from UNITAM SW folder to other folder")  //groups={"Publisher_new"},
+    @Test(priority=24, groups={"Publisher"}, description="Moves the old publisher version from UNITAM SW folder to other folder")  //
     public void movePublisherOldExeFile() throws IOException {
         files = new FilesActions();
-        //int files = move.moveFiles();
         int file = files.cancelPublisherOldExeFileFromUnitamSWFolder();
         if(file==1){
             Assert.assertTrue(true);
@@ -392,17 +376,6 @@ public class UBOTest_Publisher extends TestBase{
             Assert.fail();}
     }
 
-    // BEFORE RUNNING THE NEW VERSION OF PUBLISHER,  rename the TAG in TestRunner.xml file to NEW
-    // LAST ACTION TO DO WITH OLD PUBLISHER VERSION
-    //@Test(priority=11, groups={"Publisher_old"}, description="rename the TAG in TestRunner.xml file with Publisher_new")
-    public void verifyChangingTagInTestRunnerXML_ForNewVersion() throws Exception {
-        files = new FilesActions();
-        int file = files.changeTagInTestRunnerFileToNew("<include name=\"Publisher_old\" />","<include name=\"Publisher_new\" />");
-        if(file==1){
-            Assert.assertTrue(true);
-        }else{
-            Assert.fail();}
-    }
 
     //DUMMY TEST!!
     //@Test(priority=11, groups={"Publisher_old"}, description="Launch mvn test after changing tag in TestRunner.xml")
@@ -415,16 +388,6 @@ public class UBOTest_Publisher extends TestBase{
             Assert.fail();}
     }
 
-    // To begin a new regression tests OF PUBLISHER,  rename the TAG in TestRunner.xml file to OLD
-    // LAST ACTION TO DO WITH NEW PUBLISHER VERSION
-    //@Test(priority=13, groups={"Publisher_new"}, description="rename the TAG in TestRunner.xml file with Publisher_old")
-    public void verifyChangingTagInTestRunnerXML_ForOldVersion() throws Exception {
-        files = new FilesActions();
-        int file = 0;//files.changeTagInTestRunnerFileToOld("<include name=\"Publisher_new\" />","<include name=\"Publisher_old\" />");
-        if(file==1){
-            Assert.assertTrue(true);
-        }else{
-            Assert.fail();}
-    }
+
 
 }

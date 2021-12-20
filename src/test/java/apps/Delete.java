@@ -16,25 +16,29 @@ public class Delete extends TestBase {
     public int deleteFiles() throws Exception {
         System.out.println("@@@ DELETING FOLDERS BEFORE STARTING THE TESTS @@@");
         app_folders = excelUserData.getFoldersNamesFromExcelSheet();
-        //FileUtils.cleanDirectory(new File("C:\\TEST\\NewAppVersion"));
-        //FileUtils.cleanDirectory(new File("C:\\TEST\\OldAppVersion"));
+        File oldDir = new File(app_folders.get(0).get("OldFolderApp"));
+        if (!oldDir.exists()){oldDir.mkdirs();}
+        File newDir = new File(app_folders.get(0).get("NewFolderApp"));
+        if (!newDir.exists()){newDir.mkdirs();}
         FileUtils.cleanDirectory(new File(app_folders.get(0).get("NewFolderApp")));
         FileUtils.cleanDirectory(new File(app_folders.get(0).get("OldFolderApp")));
-        //Thread.sleep(2000);
-        //FileUtils.cleanDirectory(new File("C:\\TEST\\Report"));
-        FileUtils.cleanDirectory(new File(app_folders.get(0).get("Report")));
-        FileUtils.cleanDirectory(new File("C:\\TEST\\old_EXE"));
-        FileUtils.cleanDirectory(new File("C:\\TEST\\screenShots"));
+        File oldExe = new File(app_folders.get(0).get("oldExe"));
+        if (!oldExe.exists()){oldExe.mkdirs();}
+        FileUtils.cleanDirectory(oldExe);
+        File screen = new File(app_folders.get(0).get("screenShots"));
+        if (!screen.exists()){screen.mkdirs();}
+        FileUtils.cleanDirectory(screen);
+        File report = new File(app_folders.get(0).get("Report"));
+        if (!report.exists()){report.mkdirs();}
+        FileUtils.cleanDirectory(report);
         FileUtils.cleanDirectory(new File("C:\\UNITAM\\FileMaster\\Files\\HHSettings\\ToPanel\\Settings"));
         System.out.println("All folders are empty");
-        //int n = Objects.requireNonNull(new File("C:\\TEST\\NewAppVersion").list()).length;
-        //int o = Objects.requireNonNull(new File("C:\\TEST\\OldAppVersion").list()).length;
-        //int r = Objects.requireNonNull(new File("C:\\TEST\\Report").list()).length;
+
         int n = Objects.requireNonNull(new File(app_folders.get(0).get("NewFolderApp")).list()).length;
         int o = Objects.requireNonNull(new File(app_folders.get(0).get("OldFolderApp")).list()).length;
         int r = Objects.requireNonNull(new File(app_folders.get(0).get("Report")).list()).length;
-        int e = Objects.requireNonNull(new File("C:\\TEST\\old_EXE").list()).length;
-        int p = Objects.requireNonNull(new File("C:\\TEST\\screenShots").list()).length;
+        int e = Objects.requireNonNull(new File(app_folders.get(0).get("oldExe")).list()).length;
+        int p = Objects.requireNonNull(new File(app_folders.get(0).get("screenShots")).list()).length;
         int s = Objects.requireNonNull(new File("C:\\UNITAM\\FileMaster\\Files\\HHSettings\\ToPanel\\Settings").list()).length;
         return n+o+s+r+e+p;
     }
