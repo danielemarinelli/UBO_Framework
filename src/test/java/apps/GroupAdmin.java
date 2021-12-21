@@ -111,11 +111,12 @@ public class GroupAdmin extends TestBase {
         int length = Objects.requireNonNull(new File("C:\\UNITAM\\FileMaster\\Files\\HHSettings\\ToPanel\\Settings").list()).length;
         System.out.println("The files in ToPanel folder as soon as GROUP ADMIN finished to write are: "+length);
         int hh =  Integer.parseInt(getHHFromFile.get(0).get("HH_To_Publish").replace(".0",""));
+        System.out.println(")()()()()()()(");
+        System.out.println("Waiting to reach "+hh+" files on ToPanel/Setting Folder....");
+        System.out.println(")()()()()()()(");
         while(length<hh) {
             Thread.sleep(1000);
             newLength=Objects.requireNonNull(new File("C:\\UNITAM\\FileMaster\\Files\\HHSettings\\ToPanel\\Settings").list()).length;
-            System.out.println(")()()()()()()(");
-            System.out.println("Waiting to reach "+hh+" files on ToPanel/Setting Folder....");
             if (newLength==9){ //.........................switch to PUBLISHER and take Publisher snapshot................
                 switchToWindowPublisher(driverWinPub);
                 Thread.sleep(1000);

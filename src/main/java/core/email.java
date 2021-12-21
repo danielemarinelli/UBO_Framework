@@ -66,7 +66,7 @@ public class email {
         System.out.println("EMAILS SENT WITH ATTACH!!!");
     }
 
-    public static void sendReportAfterCompare(String version) throws Exception {
+    public static void sendReportAfterCompare(String version, String versionTPI) throws Exception {
         email_info = excelUserData.getInfoFromEmailSheet();
         folder_info = excelUserData.getFoldersNamesFromExcelSheet();
         EmailAttachment attachment = new EmailAttachment();
@@ -82,7 +82,7 @@ public class email {
         for (int i = 0; i < (Integer.parseInt(email_info.get(0).get("MailList components"))); i++) {email.addTo(email_info.get(0).get("email"+(i+1))); }
         email.setFrom(email_info.get(0).get("email_set_from"));
         email.setSubject("## REPORT Publisher Regression with new version "+version+"  ##");
-        email.setMsg(" REPORT generated with WinMerge TimeStamp and SourceAppVersion Filters ACTIVE. " +
+        email.setMsg("TPI VERSION: "+versionTPI+". REPORT generated with WinMerge TimeStamp and SourceAppVersion Filters ACTIVE. " +
                 "Download it locally and open it with any editor available");
         email.attach(attachment);
         email.send();

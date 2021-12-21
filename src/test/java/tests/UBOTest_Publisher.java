@@ -358,8 +358,8 @@ public class UBOTest_Publisher extends TestBase{
     @Test(priority=23, groups={"Publisher"}, description="Opening WinMerge application and create the comparation report")
     public void verifyCompareFiles() throws Exception {
         wm = new WinMerge(getDriverWinMerge());
-        int files = wm.generateReportToSend(ArrayPublisherVersion[3]);
-        System.out.println("VERSION TPI WITH OLD VERSION PUBLISHER IS: -------> " +versionTPIBefore);
+        int files = wm.generateReportToSend(ArrayPublisherVersion[3], versionTPIBefore);
+        System.out.println("TPI VERSION FOR THIS REGRESSION TESTS IS: -------> " +versionTPIBefore);
         if(files>0){
             Assert.assertTrue(true);
         }else{

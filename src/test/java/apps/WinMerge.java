@@ -99,7 +99,7 @@ public class WinMerge extends TestBase {
     }
 
 
-    public int generateReportToSend(String version) throws Exception {
+    public int generateReportToSend(String version, String versionTPI) throws Exception {
         folders_names = excelUserData.getFoldersNamesFromExcelSheet();
         switchToWindowWinMerge(driverWinMerge);
         List diffs = driverWinMerge.findElementsByAccessibilityId("ListViewSubItem-4");
@@ -123,8 +123,8 @@ public class WinMerge extends TestBase {
         copyPathFiles(filePathForReport);
         //copyPathFiles(folders_names.get(0).get("Report"));
         driverWinMerge.findElementByAccessibilityId("1").click();
-        System.out.println("....Generating REPORT....");
-        email.sendReportAfterCompare(version);
+        System.out.println("....Generating REPORT with TPI version "+versionTPI+" ....");
+        email.sendReportAfterCompare(version, versionTPI);
         Thread.sleep(5000);
         driverWinMerge.findElementByAccessibilityId("1").click();
         a.moveToElement(diffButton,1500,-40).click().build().perform();  //click in restore window button
