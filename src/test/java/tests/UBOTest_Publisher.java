@@ -377,17 +377,4 @@ public class UBOTest_Publisher extends TestBase{
     }
 
 
-    //DUMMY TEST!!
-    //@Test(priority=11, groups={"Publisher_old"}, description="Launch mvn test after changing tag in TestRunner.xml")
-    public void verifyLaunchScriptToStartAgainExecution() throws Exception {
-        files = new FilesActions();
-        int file = files.launchTestFromCommandLine("mvn test");
-        if(file==1){
-            Assert.assertTrue(true);
-        }else{
-            Assert.fail();}
-    }
-
-
-
 }

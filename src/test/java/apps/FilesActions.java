@@ -272,16 +272,7 @@ public class FilesActions extends TestBase {
         return 1;
     }
 
-    public int launchTestFromCommandLine(String mvn_test) throws IOException {
-        String[] command = {"dir"};
-        Runtime.getRuntime().exec("dir");
-        ProcessBuilder builder = new ProcessBuilder(command);
-        builder = builder.directory(new File("C:\\TEST\\dataExcel\\"));
-        Process p = builder.start();
-        return 1;
-    }
-
-    public void createFoldersToUnzipCommonData() throws IOException {
+     public void createFoldersToUnzipCommonData() throws IOException {
         //To create single directory/folder
         allCommonFoldersFromFile = excelUserData.getFoldersNamesFromExcelSheet();
         for (int i = 1; i <= allCommonFoldersFromFile.get(0).size()-11; i++) { //size is 31, 20 are the total folders where unzipped files will be placed
