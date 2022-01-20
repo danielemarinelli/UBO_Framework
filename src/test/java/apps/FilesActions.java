@@ -1,7 +1,6 @@
 package apps;
 
 import io.appium.java_client.windows.WindowsDriver;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.remote.RemoteWebElement;
 import tests.TestBase;
 import core.excelUserData;
@@ -9,7 +8,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.SQLOutput;
 import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -272,7 +270,7 @@ public class FilesActions extends TestBase {
         return 1;
     }
 
-     public void createFoldersToUnzipCommonData() throws IOException {
+    public void createFoldersToUnzipCommonData() throws IOException {
         //To create single directory/folder
         allCommonFoldersFromFile = excelUserData.getFoldersNamesFromExcelSheet();
         for (int i = 1; i <= allCommonFoldersFromFile.get(0).size()-11; i++) { //size is 31, 20 are the total folders where unzipped files will be placed
@@ -283,9 +281,50 @@ public class FilesActions extends TestBase {
             }
 
         }
-
-
     }
 
+    public void renamePolluxGateWayFilesFolders() throws Exception {
+        Thread.sleep(5000);
+        File ChannelCode = new File("C:\\UNITAM\\PolluxGateway\\Panel_0\\Files\\ChannelCode");
+        File _origChannelCode = new File("C:\\UNITAM\\PolluxGateway\\Panel_0\\Files\\_origChannelCode");
+        if(!ChannelCode.exists()){ChannelCode.mkdir();}
+        if (ChannelCode.renameTo(_origChannelCode)) {
+            System.out.println("Directory ChannelCode renamed successfully in _origChannelCode");
+        } else {System.out.println("########## FAILED to rename directory in _origChannelCode because folder is already present #########");}
+        //Thread.sleep(12000);
+        File year = new File("C:\\UNITAM\\PolluxGateway\\Panel_0\\Files\\2021");
+        File _origYear = new File("C:\\UNITAM\\PolluxGateway\\Panel_0\\Files\\_orig2021");
+        if(!year.exists()){year.mkdir();}
+        if (year.renameTo(_origYear)) {
+            System.out.println("Directory 2021 renamed successfully in _orig2021");
+        } else {System.out.println("########## FAILED to rename directory in _orig2021 because folder is already present #########");}
+        //Thread.sleep(12000);
+        File NTACode = new File("C:\\UNITAM\\PolluxGateway\\Panel_0\\Files\\NTACode");
+        File _origNTACode = new File("C:\\UNITAM\\PolluxGateway\\Panel_0\\Files\\_origNTACode");
+        if(!NTACode.exists()){NTACode.mkdir();}
+        if (NTACode.renameTo(_origNTACode)) {
+            System.out.println("Directory NTACode renamed successfully in _origNTACode");
+        } else {System.out.println("########## FAILED to rename directory in _origNTACode because folder is already present #########");}
+        //Thread.sleep(12000);
+        File SkyExceptions = new File("C:\\UNITAM\\PolluxGateway\\Panel_0\\Files\\SkyExceptions");
+        File _origSkyExceptions = new File("C:\\UNITAM\\PolluxGateway\\Panel_0\\Files\\_origSkyExceptions");
+        if(!SkyExceptions.exists()){SkyExceptions.mkdir();}
+        if (SkyExceptions.renameTo(_origSkyExceptions)) {
+            System.out.println("Directory SkyExceptions renamed successfully in _origSkyExceptions");
+        } else {System.out.println("########## FAILED to rename directory in _origSkyExceptions because folder is already present #########");}
+        //Thread.sleep(12000);
+    }
+
+    public void renamePolluxFromPanelTPIFolder() throws Exception {
+        Thread.sleep(5000);
+        File sourceFile = new File("C:\\UNITAM\\PolluxGateway\\Panel_0\\Files\\FromPanelData\\PolluxFromPanelTPI");
+        File destFile = new File("C:\\UNITAM\\PolluxGateway\\Panel_0\\Files\\FromPanelData\\PolluxFromPanelTPI_OLD");
+        if (sourceFile.renameTo(destFile)) {
+            System.out.println("Directory PolluxFromPanelTPI renamed successfully in PolluxFromPanelTPI_OLD");
+        } else {
+            System.out.println("########## FAILED to rename directory in PolluxFromPanelTPI_OLD because folder is already present #########");
+        }
+        Thread.sleep(2000);
+    }
 
 }

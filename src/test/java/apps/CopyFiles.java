@@ -63,5 +63,57 @@ public class CopyFiles extends TestBase {
         return true;
     }
 
+    public boolean copyFilesFromChannelCodeFolderToTestFolder() throws Exception {
+        app_new_vers = excelUserData.getPolluxGWDataFromFile();
+        File ChannelCode = new File("C:\\UNITAM\\PolluxGateway\\Panel_0\\Files\\ChannelCode");
+        if (!ChannelCode.exists()){
+            ChannelCode.mkdir();
+        }
+        ProcessBuilder ps = new ProcessBuilder("xcopy",app_new_vers.get(0).get("ChannelCode"), "C:\\UNITAM\\PolluxGateway\\Panel_0\\Files\\ChannelCode");
+        ps.redirectErrorStream(true);
+        Process pr = ps.start();
+        BufferedReader in = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+        String line;
+        while ((line = in.readLine())  != null) {
+            System.out.println(line);}
+        pr.waitFor();
+        System.out.println("ok! Files copied under Panel_0\\Files\\ChannelCode Folder");
+        in.close();
+        return true;
+    }
+
+    public boolean copyFilesFromSkyExceptionsFolderToTestFolder() throws Exception {
+        app_new_vers = excelUserData.getPolluxGWDataFromFile();
+        File SkyExceptions = new File("C:\\UNITAM\\PolluxGateway\\Panel_0\\Files\\SkyExceptions");
+        if (!SkyExceptions.exists()){SkyExceptions.mkdir();}
+        ProcessBuilder ps = new ProcessBuilder("xcopy",app_new_vers.get(0).get("SkyExceptions"), "C:\\UNITAM\\PolluxGateway\\Panel_0\\Files\\SkyExceptions");
+        ps.redirectErrorStream(true);
+        Process pr = ps.start();
+        BufferedReader in = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+        String line;
+        while ((line = in.readLine())  != null) {
+            System.out.println(line);}
+        pr.waitFor();
+        System.out.println("ok! Files copied under Panel_0\\Files\\SkyExceptions Folder");
+        in.close();
+        return true;
+    }
+
+    public boolean copyFilesFromNTACodeFolderToTestFolder() throws Exception {
+        app_new_vers = excelUserData.getPolluxGWDataFromFile();
+        File NTACode = new File("C:\\UNITAM\\PolluxGateway\\Panel_0\\Files\\NTACode");
+        if (!NTACode.exists()){NTACode.mkdir();}
+        ProcessBuilder ps = new ProcessBuilder("xcopy",app_new_vers.get(0).get("NTACode"), "C:\\UNITAM\\PolluxGateway\\Panel_0\\Files\\NTACode");
+        ps.redirectErrorStream(true);
+        Process pr = ps.start();
+        BufferedReader in = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+        String line;
+        while ((line = in.readLine())  != null) {
+            System.out.println(line);}
+        pr.waitFor();
+        System.out.println("ok! Files copied under Panel_0\\Files\\NTACode Folder");
+        in.close();
+        return true;
+    }
 
 }

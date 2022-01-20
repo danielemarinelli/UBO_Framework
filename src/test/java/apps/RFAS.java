@@ -1,9 +1,7 @@
 package apps;
 
-import core.TestReporter;
 import core.excelUserData;
 import io.appium.java_client.windows.WindowsDriver;
-import io.appium.java_client.windows.WindowsElement;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import tests.TestBase;
@@ -21,8 +19,6 @@ public class RFAS extends TestBase {
 
     public int setAuthorization() throws Exception {
         System.out.println("Click on Logs Client TAB of the RFAS app");
-        //Thread.sleep(3000);
-        //switchToWindowRFAS(getDriverRFAS());
         Thread.sleep(3000);
         driverWinRFAS.findElementByName("Log Clients").click();
         Thread.sleep(2000);

@@ -232,8 +232,6 @@ public class UBOTest_Publisher extends TestBase{
     public void verifyDownloadNewApp() throws Exception {
         System.out.println("Inside verifyDownloadNewApp() method");
         copy = new CopyFiles();
-        //setUpPublisher();
-        //copy.installNewApp(getDriverPub());
         boolean installation=copy.installNewApp();
         Assert.assertTrue(installation,"Renaming Publisher in UNITAM SW folder failed");
 
@@ -339,7 +337,7 @@ public class UBOTest_Publisher extends TestBase{
         Assert.assertTrue(t);
     }
 
-    //@Test(priority=22, groups={"Publisher"})
+    //TO IMPLEMENT to check the INI file
     public void removeLinePublisherINI_AndCheckTPIVersion() throws Exception {
         files = new FilesActions();
         files.eraseLineInFilePublisherINI();

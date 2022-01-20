@@ -102,17 +102,17 @@ public class excelUserData {
         return FoldersInfo;  //TESTDATA FOR ALL ROWS
     }
 
-    public static List<Map<String, String>> getCommonFoldersNames() throws IOException {
+    public static List<Map<String, String>> getPolluxGWDataFromFile() throws IOException {
         List<Map<String,String>> FoldersInfo=null;
         Map<String,String> testData=null;
-        FileInputStream fileInputStream=new FileInputStream("C:\\TEST\\dataExcel\\Files_Folders.xlsx");
+        FileInputStream fileInputStream=new FileInputStream("C:\\TEST\\dataExcel\\PolluxGW_File.xlsx");
         Workbook workbook=new XSSFWorkbook(fileInputStream);
         Sheet sheet=workbook.getSheetAt(0);
         int lastRowNumber=sheet.getLastRowNum();
         int lastColNumber=sheet.getRow(0).getLastCellNum();
         List list=new ArrayList();
         for(int i=0; i<lastColNumber;i++){
-            Row row=sheet.getRow(4);
+            Row row=sheet.getRow(0);
             Cell cell=row.getCell(i);
             String rowHeader = cell.getStringCellValue().trim();
             list.add(rowHeader);
