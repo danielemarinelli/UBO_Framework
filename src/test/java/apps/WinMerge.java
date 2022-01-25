@@ -1,6 +1,7 @@
 package apps;
 
 import io.appium.java_client.windows.WindowsDriver;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebElement;
@@ -99,7 +100,7 @@ public class WinMerge extends TestBase {
     }
 
 
-    public int generateReportToSend(String version, String versionTPI) throws Exception {
+    public int generatePublishedHHReportToSend(String version, String versionTPI) throws Exception {
         folders_names = excelUserData.getFoldersNamesFromExcelSheet();
         switchToWindowWinMerge(driverWinMerge);
         List diffs = driverWinMerge.findElementsByAccessibilityId("ListViewSubItem-4");
@@ -110,6 +111,10 @@ public class WinMerge extends TestBase {
         a.doubleClick(title);
         a.moveToElement(menuBar,-450,25).click().build().perform();
         driverWinMerge.findElementByAccessibilityId("57601").click();  //click on open icon
+        //driverWinMerge.findElementByAccessibilityId("1004").sendKeys(Keys.chord(Keys.DELETE));
+        //driverWinMerge.findElementByAccessibilityId("1005").sendKeys(Keys.chord(Keys.DELETE));
+        //driverWinMerge.findElementByAccessibilityId("1006").sendKeys(Keys.chord(Keys.DELETE));
+        Thread.sleep(1000);
         copyPathFiles(folders_names.get(0).get("NewFolderApp"));
         driverWinMerge.findElementByAccessibilityId("1005").click();
         copyPathFiles(folders_names.get(0).get("OldFolderApp"));
@@ -118,7 +123,7 @@ public class WinMerge extends TestBase {
         getElementCoordinates(diffButton);
         a.moveToElement(diffButton,-50,-25).click().build().perform();  //click on Tools
         driverWinMerge.findElementByAccessibilityId("32868").click();   //click generate report
-        driverWinMerge.findElementByAccessibilityId("1001").clear();
+        //driverWinMerge.findElementByAccessibilityId("1001").clear();
         String filePathForReport = folders_names.get(0).get("Report")+"\\Publisher_Report";
         copyPathFiles(filePathForReport);
         //copyPathFiles(folders_names.get(0).get("Report"));

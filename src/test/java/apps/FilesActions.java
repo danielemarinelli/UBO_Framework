@@ -278,8 +278,8 @@ public class FilesActions extends TestBase {
             if (!file.exists()) {
                 if (file.mkdir()) {System.out.println("Directory "+allCommonFoldersFromFile.get(0).get("CommonFolder"+i)+" is created!");
                 } else {System.out.println("Failed to create directory "+allCommonFoldersFromFile.get(0).get("CommonFolder"+i)+"!");}
-            }
-
+            }else{
+            System.out.println("Directory "+allCommonFoldersFromFile.get(0).get("CommonFolder"+i)+" was already created when File Master started");}
         }
     }
 

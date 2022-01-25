@@ -22,6 +22,12 @@ public class Delete extends TestBase {
         if (!newDir.exists()){newDir.mkdirs();}
         FileUtils.cleanDirectory(new File(app_folders.get(0).get("NewFolderApp")));
         FileUtils.cleanDirectory(new File(app_folders.get(0).get("OldFolderApp")));
+        /*File oldPrioDir = new File(app_folders.get(0).get("OldFolderPrioLists"));
+        if (!oldPrioDir.exists()){oldPrioDir.mkdirs();}
+        File newPrioDir = new File(app_folders.get(0).get("NewFolderPrioLists"));
+        if (!newPrioDir.exists()){newPrioDir.mkdirs();}
+        FileUtils.cleanDirectory(new File(app_folders.get(0).get("NewFolderPrioLists")));
+        FileUtils.cleanDirectory(new File(app_folders.get(0).get("OldFolderPrioLists")));   */
         File oldExe = new File(app_folders.get(0).get("oldExe"));
         if (!oldExe.exists()){oldExe.mkdirs();}
         FileUtils.cleanDirectory(oldExe);
@@ -32,7 +38,7 @@ public class Delete extends TestBase {
         if (!report.exists()){report.mkdirs();}
         FileUtils.cleanDirectory(report);
         FileUtils.cleanDirectory(new File("C:\\UNITAM\\FileMaster\\Files\\HHSettings\\ToPanel\\Settings"));
-        System.out.println("All folders are empty");
+        System.out.println("All folders of previous regression are empty");
 
         int n = Objects.requireNonNull(new File(app_folders.get(0).get("NewFolderApp")).list()).length;
         int o = Objects.requireNonNull(new File(app_folders.get(0).get("OldFolderApp")).list()).length;

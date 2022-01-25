@@ -135,10 +135,10 @@ public class GroupAdmin extends TestBase {
         getHHFromFile = excelUserData.getFoldersNamesFromExcelSheet();
         int hh =  Integer.parseInt(getHHFromFile.get(0).get("HH_To_Publish").replace(".0",""));
         System.out.println("clicked FILTER button....");
-        Thread.sleep(10000);
+        Thread.sleep(5000);
         driverWinGA.findElementByName("Advanced filter:").click();
         driverWinGA.findElementByName("...").click();
-        Thread.sleep(1000);
+        //Thread.sleep(1000);
         WebElement status = driverWinGA.findElementByName("Status:");
         boolean selectedStatus = status.isSelected();
         if(!selectedStatus){

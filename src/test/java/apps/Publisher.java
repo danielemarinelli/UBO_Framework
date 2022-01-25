@@ -27,7 +27,6 @@ public class Publisher extends TestBase {
 
     public String getPublisherVersion()  {
         String title[] = driverWinPub.getTitle().split(" ");
-        System.out.println();
         return title[3];
     }
 

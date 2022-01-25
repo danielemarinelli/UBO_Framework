@@ -179,74 +179,7 @@ public class TestBase {
         System.out.println("GA handler: "+windowsGA);
     }
 
-    public final void setUpPolluxGateway() {
-        DesiredCapabilities PolluxGW = new DesiredCapabilities();
-        PolluxGW.setCapability("app", "C:\\UNITAM SW\\PolluxGateway.exe");
-        PolluxGW.setCapability("platformName", "Windows_PolluxGW");
-        PolluxGW.setCapability("deviceName", "WindowsPC_PolluxGW");
-        try {
-            driverWinPolluxGW = new WindowsDriver(new URL("http://127.0.0.1:4723/"), PolluxGW);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        Set<String> windowsPolluxGW = driverWinPolluxGW.getWindowHandles();
-        Assert.assertNotNull(driverWinPolluxGW,"PolluxGW didn't open");
-        System.out.println("PolluxGW handler: "+windowsPolluxGW);
-    }
 
-    public final void setUpReproductionAgent1() throws Exception {
-        DesiredCapabilities RA = new DesiredCapabilities();
-        RA.setCapability("app", "C:\\UNITAM SW\\ReproductionAgent.exe");
-        RA.setCapability("platformName", "Windows_ReproductionAgent");
-        RA.setCapability("deviceName", "WindowsPC_ReproductionAgent");
-        try {
-        System.out.println();
-        driverWinReproductionAgent = new WindowsDriver(new URL("http://127.0.0.1:4723/"), RA);
-        System.out.println("---->>" +driverWinReproductionAgent);
-        } catch (Exception e) {
-            System.out.println("Message: "+ e.getMessage());
-            System.out.println("StackTrace: ");
-            e.printStackTrace();
-            //e.printStackTrace();
-            //getDriverRA();
-            driverWinReproductionAgent = new WindowsDriver(new URL("http://127.0.0.1:4723/"), RA);
-            System.out.println("Reproduction Agent inside catch Exception block");
-            System.out.println("---->><<-----" +driverWinReproductionAgent);
-
-        }
-        //Thread.sleep(15000);
-        Set<String> windowsRA = getDriverRA().getWindowHandles();
-        Assert.assertNotNull(getDriverRA(),"ReproductionAgent didn't open");
-        System.out.println("ReproductionAgent handler: "+windowsRA);
-    }
-
-    public final void setUpReproductionAgent() throws Exception {
-        try{
-        reproductionAgentTitleFromFile = excelUserData.getPolluxGWDataFromFile();
-        DesiredCapabilities desktopCapabilities = new DesiredCapabilities();
-        desktopCapabilities.setCapability("platformName", "Windows");
-        desktopCapabilities.setCapability("deviceName", "WindowsPC");
-        desktopCapabilities.setCapability("app", "Root");
-        Thread.sleep(5000);
-        WindowsDriver desktopSession = new WindowsDriver(new URL("http://127.0.0.1:4723/"), desktopCapabilities);
-        WebElement Reproduction = desktopSession.findElementByName(reproductionAgentTitleFromFile.get(0).get("ReproductionAgentTitle"));
-        String RAWinHandleStr = Reproduction.getAttribute("NativeWindowHandle");
-        int RAWinHandleInt = Integer.parseInt(RAWinHandleStr);
-        RAWinHandleHex = Integer.toHexString(RAWinHandleInt);
-        DesiredCapabilities RACapabilities = new DesiredCapabilities();
-        RACapabilities.setCapability("platformName", "Windows");
-        RACapabilities.setCapability("deviceName", "WindowsPC");
-        RACapabilities.setCapability("appTopLevelWindow", RAWinHandleHex);
-        System.out.println("Reproduction Agent Handle is: " + RAWinHandleHex);
-        driverWinReproductionAgent = new WindowsDriver(new URL("http://127.0.0.1:4723/"), RACapabilities);
-        Thread.sleep(5000);
-        driverWinReproductionAgent.switchTo().window(RAWinHandleHex);
-        } catch (MalformedURLException e) {
-        e.printStackTrace();
-        }
-    }
-
-    public WindowsDriver getDriverPolluxGW() { return driverWinPolluxGW;}
     public WindowsDriver getDriverLC() { return driverWinLC;}
     public WindowsDriver getDriverFM() { return driverWinFM;}
     public WindowsDriver getDriverRFAS() { return driverWinRFAS;}
@@ -268,10 +201,10 @@ public class TestBase {
             for (int i = 0; i < 2; i++) { driverWinFM.findElementByName("Yes").click(); }
         }
 
-    @AfterMethod(groups={"Publisher"})
+    //@AfterMethod(groups={"Publisher"})
     public void testDone(){System.out.println("##########Test is over, proceed with next one...");}
 
-    @BeforeMethod(groups={"Publisher"})//(alwaysRun=true)
+    //@BeforeMethod(groups={"Publisher"})//(alwaysRun=true)
     public void startTest(){System.out.println("#########Test is starting...");}
 
     public void tearDownSV() { driverWinSV.close(); }
@@ -601,6 +534,10 @@ public class TestBase {
             File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
             email.sendEmailForPolluxFailure("SendingJobsToFileMasterFromReproductionAgent");
+        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("copyPriorityListFilesToOldTestFolder")) {
+            email.sendEmailForPolluxFailure("copyPriorityListFilesToOldTestFolder");
+        }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("copyPriorityListFilesToNewTestFolder")) {
+            email.sendEmailForPolluxFailure("copyPriorityListFilesToNewTestFolder");
         }
     }
 
@@ -654,7 +591,7 @@ public class TestBase {
     public void copyPathFiles(String s) throws Exception {
         // copying File path to Clipboard
         StringSelection str = new StringSelection(s);
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(str, null);
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(str, null);  //writes a string to the system clipboard
         Robot rb = new Robot();
         // press Control+V for pasting
         rb.keyPress(KeyEvent.VK_CONTROL);
@@ -663,6 +600,8 @@ public class TestBase {
         rb.keyRelease(KeyEvent.VK_CONTROL);
         rb.keyRelease(KeyEvent.VK_V);
     }
+
+
 
 
 }
