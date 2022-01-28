@@ -201,10 +201,10 @@ public class TestBase {
             for (int i = 0; i < 2; i++) { driverWinFM.findElementByName("Yes").click(); }
         }
 
-    //@AfterMethod(groups={"Publisher"})
+    @AfterMethod(groups={"Publisher"})
     public void testDone(){System.out.println("##########Test is over, proceed with next one...");}
 
-    //@BeforeMethod(groups={"Publisher"})//(alwaysRun=true)
+    @BeforeMethod(groups={"Publisher"})//(alwaysRun=true)
     public void startTest(){System.out.println("#########Test is starting...");}
 
     public void tearDownSV() { driverWinSV.close(); }
@@ -447,10 +447,6 @@ public class TestBase {
         }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("verifyRenameFileMasterAndUnzipFiles_NEW")) {
             email.sendEmailForPublisherFailure("verifyRenameFileMasterAndUnzipFiles_NEW");
         }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("eraseOldFileMasterFolder_NEW")) {
-            //TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
-            //File screenShot = camera.getScreenshotAs(OutputType.FILE);
-            //File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
-            //FileHandler.copy(screenShot, DestFile);
             email.sendEmailForPublisherFailure("eraseOldFileMasterFolder_NEW");
         }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("checkIfClientIsAuthorized_NEW")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);
@@ -462,32 +458,24 @@ public class TestBase {
             TakesScreenshot camera =((TakesScreenshot)driverWinPub);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
             File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
-            //File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
-            //File DestFile = new File("./src/main/screenShots/FAIL__"+result.getName()+"__"+formatDate()+".png");
             FileHandler.copy(screenShot,DestFile);
             email.sendEmailForPublisherFailure("checkIfPublisherOpensCorrectly_NEW");
         }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("performPriorityListAction_NEW")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinSA);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
             File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
-            //File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
-            //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
             email.sendEmailForPublisherFailure("performPriorityListAction_NEW");
         }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("checkIfPublishHouseHoldsProcessIsCorrect_NEW")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinGA);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
             File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
-            //File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
-            //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
             email.sendEmailForPublisherFailure("checkIfPublishHouseHoldsProcessIsCorrect_NEW");
         }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("readLogsFromSystemView_NEW")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinSV);
             File screenShot = camera.getScreenshotAs(OutputType.FILE);
             File DestFile = new File("C:\\TEST\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
-            //File DestFile = new File(System.getProperty("user.dir")+"\\screenShots\\FAIL__" + result.getName() + "__" + formatDate() + ".png");
-            //File DestFile = new File("./src/main/screenShots/FAIL__" + result.getName() + "__" + formatDate() + ".png");
             FileHandler.copy(screenShot, DestFile);
             email.sendEmailForPublisherFailure("readLogsFromSystemView_NEW");
         }else if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("copyGeneratedFilesToNewTestVersionFolder")) {
@@ -543,19 +531,17 @@ public class TestBase {
 
 
     public String formatDate(){
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-    LocalDateTime now = LocalDateTime.now();
-    date = dtf.format(now);
-    date = date.replaceAll("/","").replaceAll(":","").replaceAll(" ","");
-    return date;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        date = dtf.format(now);
+        date = date.replaceAll("/","").replaceAll(":","").replaceAll(" ","");
+        return date;
     }
 
     public void takeAppSnap(WindowsDriver driver, String app) throws IOException {
            TakesScreenshot ts = (TakesScreenshot) driver;
            File file = ts.getScreenshotAs(OutputType.FILE);
            FileUtils.copyFile(file,new File("C:\\TEST\\screenShots\\"+app+"__"+formatDate()+".png"));
-           //FileUtils.copyFile(file,new File(System.getProperty("user.dir")+"\\screenShots\\"+app+"__"+formatDate()+".png"));
-           //FileUtils.copyFile(file,new File("./src/main/screenShots/"+app+"__"+formatDate()+".png"));
            if(!file.exists()){ file.mkdir(); }
     }
 
@@ -563,8 +549,6 @@ public class TestBase {
         TakesScreenshot ts = (TakesScreenshot) driver;
         File file = ts.getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(file,new File("C:\\TEST\\screenShots\\"+fileName+".png"));
-        //FileUtils.copyFile(file,new File(System.getProperty("user.dir")+"\\screenShots\\"+fileName+".png"));
-        //FileUtils.copyFile(file,new File("./src/main/screenShots/"+fileName+".png"));
         if(!file.exists()){ file.mkdir(); }
     }
 

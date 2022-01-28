@@ -69,7 +69,7 @@ public class email {
         folder_info = excelUserData.getFoldersNamesFromExcelSheet();
         EmailAttachment attachment = new EmailAttachment();
         MultiPartEmail email = new MultiPartEmail();
-        attachment.setPath(folder_info.get(0).get("Report")+"\\Publisher_Report");
+        attachment.setPath(folder_info.get(0).get("Report")+"\\Regression_Report");
         attachment.setDisposition(EmailAttachment.ATTACHMENT);
         attachment.setDescription("Reporting File");
         attachment.setName("Publisher_Regression_Report");

@@ -120,13 +120,11 @@ public class WinMerge extends TestBase {
         copyPathFiles(folders_names.get(0).get("OldFolderApp"));
         driverWinMerge.findElementByAccessibilityId("1006").click();
         driverWinMerge.findElementByAccessibilityId("1").click(); //click compare button
-        getElementCoordinates(diffButton);
+        //getElementCoordinates(diffButton);
         a.moveToElement(diffButton,-50,-25).click().build().perform();  //click on Tools
         driverWinMerge.findElementByAccessibilityId("32868").click();   //click generate report
-        //driverWinMerge.findElementByAccessibilityId("1001").clear();
-        String filePathForReport = folders_names.get(0).get("Report")+"\\Publisher_Report";
+        String filePathForReport = folders_names.get(0).get("Report")+"\\Regression_Report";
         copyPathFiles(filePathForReport);
-        //copyPathFiles(folders_names.get(0).get("Report"));
         driverWinMerge.findElementByAccessibilityId("1").click();
         System.out.println("....Generating REPORT with TPI version "+versionTPI+" ....");
         email.sendReportAfterCompare(version, versionTPI);
