@@ -201,10 +201,10 @@ public class TestBase {
             for (int i = 0; i < 2; i++) { driverWinFM.findElementByName("Yes").click(); }
         }
 
-    @AfterMethod(groups={"Publisher"})
+    @AfterMethod//(groups={"Publisher"})
     public void testDone(){System.out.println("##########Test is over, proceed with next one...");}
 
-    @BeforeMethod(groups={"Publisher"})//(alwaysRun=true)
+    @BeforeMethod//(groups={"Publisher"})//(alwaysRun=true)
     public void startTest(){System.out.println("#########Test is starting...");}
 
     public void tearDownSV() { driverWinSV.close(); }
@@ -327,7 +327,7 @@ public class TestBase {
         }
     }
 
-    @BeforeMethod(groups={"Publisher"})//(alwaysRun=true)//
+    @BeforeMethod//(groups={"Publisher"})//(alwaysRun=true)//
     public void initTestReport(Method method){reporter.startReporting(method.getName()); }
 
     public TestReporter reporter(){
@@ -337,15 +337,15 @@ public class TestBase {
         return null;
     }
 
-    @AfterMethod(groups={"Publisher"})//(alwaysRun=true)//
+    @AfterMethod//(groups={"Publisher"})//(alwaysRun=true)//
     public void closeReport(){ reporter.endReporting(); }
 
-    @AfterSuite(groups={"Publisher"})//(alwaysRun=true)//
+    @AfterSuite//(groups={"Publisher"})//(alwaysRun=true)//
     public void clearReport(){
         reporter.flushReport();
     }
 
-    @AfterMethod(groups={"Publisher"})//(alwaysRun=true)//
+    @AfterMethod//(groups={"Publisher"})//(alwaysRun=true)//
     public void testStatusInExtentReport(ITestResult result) {
         if(ITestResult.FAILURE == result.getStatus()){
             reporter().report(LogStatus.FAIL,"Failed test is: "+result.getName());
@@ -357,7 +357,7 @@ public class TestBase {
         }
     }
 
-    @AfterMethod(groups={"Publisher"})//(alwaysRun=true)//
+    @AfterMethod//(groups={"Publisher"})//(alwaysRun=true)//
     public void takeScreenShotIfTestsFails(ITestResult result) throws Exception {
         if (ITestResult.FAILURE == result.getStatus() && result.getName().equals("checkIfClientIsAuthorized_OLD")) {
             TakesScreenshot camera = ((TakesScreenshot) driverWinRFAS);

@@ -26,14 +26,16 @@ public class RFAS extends TestBase {
         allDataFromFile = excelUserData.getDataFromExcelFile();
         String clientID = allDataFromFile.get(0).get("ID");
         WebElement rowClient = driverWinRFAS.findElementByName(clientID);
+        if(rowClient.getLocation().getY()>400){
+        System.out.println("Client Authorization process started");
         rowClient.click();
         Actions actions = new Actions(driverWinRFAS);
         actions.moveToElement(rowClient).contextClick().build().perform();
         driverWinRFAS.findElementByName("Authorize Client(s)").click();
         driverWinRFAS.findElementByName("Yes").click();
+        }else{System.out.println("Client is already authorized");}
         Thread.sleep(2000);
-        //for (int i = 0; i < 2; i++) { driverWinRFAS.findElementByName("Yes").click(); }
-        System.out.println("Authorized Client RFAS...");
+        //System.out.println("Authorized Client RFAS...");
         String[] title = driverWinRFAS.getTitle().split(" ");
         takeAppSnap(driverWinRFAS, title[0]);
         return num_auth_cli.size();
