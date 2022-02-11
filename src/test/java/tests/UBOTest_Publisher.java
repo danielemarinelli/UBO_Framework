@@ -70,7 +70,7 @@ public class UBOTest_Publisher extends TestBase{
     public void checkIfClientIsAuthorized_OLD() throws Exception {
         setUpRFAS();
         rfas = new RFAS(getDriverRFAS());
-        Thread.sleep(4000);
+        Thread.sleep(2000);
         switchToWindowRFAS(getDriverRFAS());
         int client_RFAS = 0;
         try {

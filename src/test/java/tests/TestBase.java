@@ -51,7 +51,7 @@ public class TestBase {
     List<Map<String,String>> reproductionAgentTitleFromFile;
 
 
-    @BeforeSuite(groups={"Publisher"})
+    @BeforeSuite
     public final void openWinMergeApp() {
         DesiredCapabilities WM = new DesiredCapabilities();
         WM.setCapability("app", "C:\\Program Files\\WinMerge\\WinMergeU.exe");
@@ -69,7 +69,7 @@ public class TestBase {
         }
     }
 
-    @BeforeSuite(groups={"Publisher"})
+    @BeforeSuite
     public final void setUpLC() throws IOException {
         DesiredCapabilities LC = new DesiredCapabilities();
         LC.setCapability("app", "C:\\UNITAM SW\\LogCollector.exe");

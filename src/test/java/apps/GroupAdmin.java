@@ -158,39 +158,17 @@ public class GroupAdmin extends TestBase {
 
     public String selectOnly_number_Active_HH() throws Exception {
         getHHFromFile = excelUserData.getFoldersNamesFromExcelSheet();
-        //String hhString = getHHFromFile.get(0).get("HH_To_Publish").replace(".0","");
         int hh =  Integer.parseInt(getHHFromFile.get(0).get("HH_To_Publish").replace(".0",""));
-        /*System.out.println("clicked FILTER button....");
-        Thread.sleep(5000);
-        driverWinGA.findElementByName("Advanced filter:").click();
-        driverWinGA.findElementByName("...").click();
-        //Thread.sleep(1000);
-        WebElement status = driverWinGA.findElementByName("Status:");
-        boolean selectedStatus = status.isSelected();
-        if(!selectedStatus){
-            status.click();
-            driverWinGA.findElementByName("Active").click();
-            driverWinGA.findElementByName("To be published").click();
-            driverWinGA.findElementByName("Installed").click();
-        }else{System.out.println("Status already selected");}
-        Thread.sleep(1000);
-        driverWinGA.findElementByName("OK").click();
-        Thread.sleep(500);
-        driverWinGA.findElementByName("Read").click();
-        Thread.sleep(2000);*/
         WebElement selectAll = driverWinGA.findElementByAccessibilityId("1010");
         Actions a = new Actions(driverWinGA);
         Thread.sleep(500);
-        //getElementCoordinates(selectAll);
         int i = 0;
         //CHECK IF number hh in EXCEL sheet isn't greater than all hh in GroupAdmin
-        //checkIfUserInsertedWrongHHNumberInExcelFile();
         if(hh==-1){
             System.out.println(".........Selected ALL HHs to publish........");
             selectAll.click();
         }else {
             for (int countHH = 0; countHH < hh; countHH++) {   //300
-                //a.moveToElement(selectAll, 10, -500).click().build().perform();
                 a.moveToElement(selectAll, 25, -490).click().build().perform();  //Click on center checkbox HH
                 driverWinGA.findElementByAccessibilityId("DownButton").click();
                 i++;
@@ -199,7 +177,6 @@ public class GroupAdmin extends TestBase {
         }
         driverWinGA.findElementByName("Write").click();
         System.out.println("clicked on WRITE button....");
-        //if(hh!=-1){
         checkIfWritingIsOver();
         Thread.sleep(2500);
         driverWinGA.findElementByAccessibilityId("1").click();
@@ -247,7 +224,6 @@ public class GroupAdmin extends TestBase {
         }
         else{return false;}
     }
-
 
     public String appName() {
         String[] title = driverWinGA.getTitle().split(" ");

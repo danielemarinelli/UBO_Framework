@@ -33,7 +33,7 @@ public class SignalAdmin extends TestBase {
         System.out.println("SignalsAdmin opens correctly and pressing Lock button...");
         System.out.println("handler here IN THE SECOND PAGE---> "+driverWinSA.getWindowHandle());
         String title[] = driverWinSA.getTitle().split(" ");
-        Thread.sleep(6000);
+        Thread.sleep(4000);
         driverWinSA.findElementByName("Lock").click();
         driverWinSA.findElementByAccessibilityId("1328").click();//Publish region & CI rules button
         System.out.println("Clicked on button 'Publish region & CI rules'...");

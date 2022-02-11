@@ -230,8 +230,6 @@ public class FilesActions extends TestBase {
         Thread.sleep(5000);
         File sourceFile = new File("C:\\UNITAM\\FileMaster");
         File destFile = new File("C:\\UNITAM\\FileMaster_OLD");
-        //if(destFile.exists()){FileUtils.cleanDirectory(new File("C:\\UNITAM\\FileMaster_OLD"));}
-
         if (sourceFile.renameTo(destFile)) {
             System.out.println("Directory FileMaster renamed successfully in FileMaster_OLD");
         } else {
