@@ -78,7 +78,7 @@ public class UBOTest_Publisher extends TestBase{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Assert.assertEquals(client_RFAS,1);
+        Assert.assertEquals(client_RFAS,1,"Client Authorized anyway, not a blocking issue");
     }
 
     @Test(priority=5, groups={"Publisher"}, description="Opening OLD Publisher version")
@@ -213,7 +213,7 @@ public class UBOTest_Publisher extends TestBase{
         tearDownFM();
         System.out.println("FM closed...");
         switchToWindowLC(getDriverLC());
-        Thread.sleep(15000);  //pause to be sure FM is closed with all it's threads
+        Thread.sleep(10000);  //pause to be sure FM is closed with all it's threads
         //tearDownLC();
         //tearDownLC_WD();
         System.out.println("App closed except LC!!!!");
@@ -231,7 +231,7 @@ public class UBOTest_Publisher extends TestBase{
     @Test(priority=13, groups={"Publisher"}, dependsOnMethods = {"checkIfPublishHouseHoldsProcessIsCorrect_OLD"}, description="Unzipping daily/common files into FileMaster folder")
     public void verifyRenameFileMasterAndUnzipFiles_NEW() throws Exception {
         files = new FilesActions();
-        files.renameFileMasterFolderToStartRegressionsWithNewApp();  // DOESN'T RENAME FILE MASTER FOLDER if already exists!!
+        files.renameFileMasterFolder();  // DOESN'T RENAME FILE MASTER FOLDER if already exists!!
         System.out.println("#### Renamed fileMaster folder to start test with NEW Publisher version...");
         setUpFM();
         files.createFoldersToUnzipCommonData();
@@ -294,7 +294,7 @@ public class UBOTest_Publisher extends TestBase{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Assert.assertEquals(client_RFAS,1);
+        Assert.assertEquals(client_RFAS,1, "Client Authorized anyway, not a blocking issue");
     }
 
     @Test(priority=18, groups={"Publisher"}, dependsOnMethods = {"checkIfPublishHouseHoldsProcessIsCorrect_OLD"}, description="Opening NEW Publisher version")
@@ -438,6 +438,6 @@ public class UBOTest_Publisher extends TestBase{
         }else{
             Assert.fail();}
     }
-
+    
 
 }

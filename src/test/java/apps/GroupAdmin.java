@@ -124,7 +124,7 @@ public class GroupAdmin extends TestBase {
         System.out.println("Waiting to reach "+hh+" files in ToPanel/Setting Folder....");
         System.out.println(")()()()()()()(");}
         if(hh==-1){
-            while (length <= b) {
+            while (length < b) {
                 Thread.sleep(1000);
                 newLength = Objects.requireNonNull(new File("C:\\UNITAM\\FileMaster\\Files\\HHSettings\\ToPanel\\Settings").list()).length;
                 if (newLength == 9) { //.........................switch to PUBLISHER and take Publisher snapshot................
@@ -132,13 +132,13 @@ public class GroupAdmin extends TestBase {
                     Thread.sleep(1000);
                     p = new Publisher(driverWinPub);
                     p.getPublisherScreenShotWhilePublishing();
-                    Thread.sleep(2000);
+                    Thread.sleep(4000);
                     switchToWindowGA(driverWinGA);
                 }
                 length = newLength;
             }
         }else {
-            while (length <= hh) {
+            while (length < hh) {
                 Thread.sleep(1000);
                 newLength = Objects.requireNonNull(new File("C:\\UNITAM\\FileMaster\\Files\\HHSettings\\ToPanel\\Settings").list()).length;
                 if (newLength == 9) { //.........................switch to PUBLISHER and take Publisher snapshot................
@@ -146,13 +146,13 @@ public class GroupAdmin extends TestBase {
                     Thread.sleep(1000);
                     p = new Publisher(driverWinPub);
                     p.getPublisherScreenShotWhilePublishing();
-                    Thread.sleep(2000);
+                    Thread.sleep(4000);
                     switchToWindowGA(driverWinGA);
                 }
                 length = newLength;
             }
         }
-        System.out.println("The final number of files in ToPanel folder is: "+length);
+        //System.out.println("The final number of files in ToPanel folder is: "+length);
 
     }
 

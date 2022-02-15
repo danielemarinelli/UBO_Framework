@@ -198,8 +198,11 @@ public class TestBase {
         //@AfterSuite
         public void tearDownFM(){
         driverWinFM.close();
-            for (int i = 0; i < 2; i++) { driverWinFM.findElementByName("Yes").click(); }
+        for (int i = 0; i < 2; i++) { driverWinFM.findElementByName("Yes").click(); }
+        driverWinFM.quit();
         }
+
+
 
     @AfterMethod(groups={"Publisher"})
     public void testDone(){System.out.println("##########Test is over, proceed with next one...");}
@@ -207,7 +210,9 @@ public class TestBase {
     @BeforeMethod(groups={"Publisher"})//(alwaysRun=true)
     public void startTest(){System.out.println("#########Test is starting...");}
 
-    public void tearDownSV() { driverWinSV.close(); }
+    public void tearDownSV() {
+        driverWinSV.findElementByName("Close").click();
+    }
 
     public void tearDownPub() throws InterruptedException {
         driverWinPub.close();

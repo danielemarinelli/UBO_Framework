@@ -235,7 +235,7 @@ public class FilesActions extends TestBase {
         } else {
             System.out.println("########## FAILED to rename directory in FileMaster_OLD, rename it manually and restart FM #########");
         }
-        Thread.sleep(12000);
+        Thread.sleep(2000);
     }
 
     public void removeDirectory() {
