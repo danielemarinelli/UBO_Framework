@@ -62,7 +62,7 @@ public class UBOTest_Publisher extends TestBase{
         System.out.println(".......DELETING FileMaster_OLD folder........");
         int f = files.removeDirectory(new File("C:\\UNITAM\\FileMaster_OLD"));
         System.out.println("@@@ Deleted FileMaster_OLD folder @@@");
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         Assert.assertEquals(f,1);
     }
 
@@ -113,7 +113,8 @@ public class UBOTest_Publisher extends TestBase{
         getDriverSignalsAdmin().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
-    @Test(priority=7, groups={"Publisher"}, description="Publishing with OLD version the households number specify in the Excel Sheet ")
+    //60minutes timeout
+    @Test(priority=7, groups={"Publisher"}, timeOut = 3600000, description="Publishing with OLD version the households number specify in the Excel Sheet ")
     public void checkIfPublishHouseHoldsProcessIsCorrect_OLD()  {
         String title_GroupAdmin = null;
         try {
@@ -153,7 +154,7 @@ public class UBOTest_Publisher extends TestBase{
         Assert.assertEquals(title_sv,"SystemView");
     }
 
-    @Test(priority=9, groups={"Publisher"}, dependsOnMethods = {"checkIfPublishHouseHoldsProcessIsCorrect_OLD"}, timeOut = 50000, description="Copying files from ToPanel Setting to a Test folder for compare of old version")
+    @Test(priority=9, groups={"Publisher"}, dependsOnMethods = {"checkIfPublishHouseHoldsProcessIsCorrect_OLD"}, description="Copying files from ToPanel Setting to a Test folder for compare of old version")
     public void copyGeneratedFilesToOldTestVersionFolder() throws Exception {
         System.out.println("Inside copyGeneratedFiles() method");
         copy = new CopyFiles();
@@ -230,7 +231,7 @@ public class UBOTest_Publisher extends TestBase{
     @Test(priority=13, groups={"Publisher"}, dependsOnMethods = {"checkIfPublishHouseHoldsProcessIsCorrect_OLD"}, description="Unzipping daily/common files into FileMaster folder")
     public void verifyRenameFileMasterAndUnzipFiles_NEW() throws Exception {
         files = new FilesActions();
-        files.renameFileMasterFolder();  // DOESN'T RENAME FILE MASTER FOLDER if already exists!!
+        files.renameFileMasterFolderToStartRegressionsWithNewApp();  // DOESN'T RENAME FILE MASTER FOLDER if already exists!!
         System.out.println("#### Renamed fileMaster folder to start test with NEW Publisher version...");
         setUpFM();
         files.createFoldersToUnzipCommonData();
@@ -328,7 +329,7 @@ public class UBOTest_Publisher extends TestBase{
         getDriverSignalsAdmin().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
-    @Test(priority=20, groups={"Publisher"}, dependsOnMethods = {"checkIfPublishHouseHoldsProcessIsCorrect_OLD"}, description="Publishing with NEW version the households number specify in the Excel Sheet ")
+    @Test(priority=20, groups={"Publisher"}, timeOut = 3600000, dependsOnMethods = {"checkIfPublishHouseHoldsProcessIsCorrect_OLD"}, description="Publishing with NEW version the households number specify in the Excel Sheet ")
     public void checkIfPublishHouseHoldsProcessIsCorrect_NEW()  {
         String title_GroupAdmin = null;
         try {
@@ -339,7 +340,7 @@ public class UBOTest_Publisher extends TestBase{
             switchToWindowGA(getDriverGA());
             //title_GroupAdmin = ga.publishAll_HH();  1322
             //title_GroupAdmin = ga.publishOnlyActive_HH();  //  818
-            title_GroupAdmin = ga.selectOnly_number_Active_HH();  //300
+            title_GroupAdmin = ga.selectOnly_number_Active_HH_withNEW_Publisher();  //300
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -362,7 +363,7 @@ public class UBOTest_Publisher extends TestBase{
         Assert.assertEquals(title_sv,"SystemView");
     }
 
-    @Test(priority=22, groups={"Publisher"}, dependsOnMethods = {"checkIfPublishHouseHoldsProcessIsCorrect_OLD"}, timeOut = 50000, description="Copying files from ToPanel Setting to a Test folder for comparation of new version")
+    @Test(priority=22, groups={"Publisher"}, dependsOnMethods = {"checkIfPublishHouseHoldsProcessIsCorrect_OLD"}, description="Copying files from ToPanel Setting to a Test folder for comparation of new version")
     public void copyGeneratedFilesToNewTestVersionFolder() throws Exception {
         System.out.println("Inside copyGeneratedFiles() method");
         copy = new CopyFiles();

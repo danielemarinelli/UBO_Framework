@@ -132,7 +132,7 @@ public class GroupAdmin extends TestBase {
                     Thread.sleep(1000);
                     p = new Publisher(driverWinPub);
                     p.getPublisherScreenShotWhilePublishing();
-                    Thread.sleep(1000);
+                    Thread.sleep(2000);
                     switchToWindowGA(driverWinGA);
                 }
                 length = newLength;
@@ -146,7 +146,7 @@ public class GroupAdmin extends TestBase {
                     Thread.sleep(1000);
                     p = new Publisher(driverWinPub);
                     p.getPublisherScreenShotWhilePublishing();
-                    Thread.sleep(1000);
+                    Thread.sleep(2000);
                     switchToWindowGA(driverWinGA);
                 }
                 length = newLength;
@@ -170,6 +170,38 @@ public class GroupAdmin extends TestBase {
         }else {
             for (int countHH = 0; countHH < hh; countHH++) {   //300
                 a.moveToElement(selectAll, 25, -490).click().build().perform();  //Click on center checkbox HH
+                Thread.sleep(300);
+                driverWinGA.findElementByAccessibilityId("DownButton").click();
+                i++;
+            }
+            System.out.println("Selected "+i+" HH to publish...###");
+        }
+        driverWinGA.findElementByName("Write").click();
+        System.out.println("clicked on WRITE button....");
+        checkIfWritingIsOver();
+        Thread.sleep(2500);
+        driverWinGA.findElementByAccessibilityId("1").click();
+        String[] title = driverWinGA.getTitle().split(" ");
+        takeAppSnap(driverWinGA, title[0]);
+        return title[0];
+    }
+
+    public String selectOnly_number_Active_HH_withNEW_Publisher() throws Exception {
+        getHHFromFile = excelUserData.getFoldersNamesFromExcelSheet();
+        int hh =  Integer.parseInt(getHHFromFile.get(0).get("HH_To_Publish").replace(".0",""));
+        WebElement selectAll = driverWinGA.findElementByAccessibilityId("1010");
+        driverWinGA.findElementByName("Read").click();
+        Actions a = new Actions(driverWinGA);
+        Thread.sleep(500);
+        int i = 0;
+        //CHECK IF number hh in EXCEL sheet isn't greater than all hh in GroupAdmin
+        if(hh==-1){
+            System.out.println(".........Selected ALL HHs to publish........");
+            selectAll.click();
+        }else {
+            for (int countHH = 0; countHH < hh; countHH++) {   //300
+                a.moveToElement(selectAll, 25, -490).click().build().perform();  //Click on center checkbox HH
+                Thread.sleep(300);
                 driverWinGA.findElementByAccessibilityId("DownButton").click();
                 i++;
             }

@@ -233,7 +233,7 @@ public class FilesActions extends TestBase {
         if (sourceFile.renameTo(destFile)) {
             System.out.println("Directory FileMaster renamed successfully in FileMaster_OLD");
         } else {
-            System.out.println("########## FAILED to rename directory in FileMaster_OLD because folder is already present #########");
+            System.out.println("########## FAILED to rename directory in FileMaster_OLD, rename it manually and restart FM #########");
         }
         Thread.sleep(12000);
     }
@@ -325,4 +325,15 @@ public class FilesActions extends TestBase {
         Thread.sleep(2000);
     }
 
+    public void renameFileMasterFolderToStartRegressionsWithNewApp() throws Exception {
+        Thread.sleep(5000);
+        File sourceFile = new File("C:\\UNITAM\\FileMaster");
+        File destFile = new File("C:\\UNITAM\\FileMaster_orig");
+        if (sourceFile.renameTo(destFile)) {
+            System.out.println("Directory FileMaster renamed successfully in FileMaster_orig");
+        } else {
+            System.out.println("########## FAILED to rename directory in FileMaster_orig because folder is already present #########");
+        }
+        Thread.sleep(12000);
+    }
 }

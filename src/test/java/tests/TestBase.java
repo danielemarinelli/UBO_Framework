@@ -59,7 +59,7 @@ public class TestBase {
         WM.setCapability("deviceName", "WindowsPC_WM");
         try {
         driverWinMerge = new WindowsDriver(new URL("http://127.0.0.1:4723/"), WM);
-        driverWinMerge.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driverWinMerge.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         Assert.assertNotNull(driverWinMerge,"WinMerge App didn't open");
             Set<String> windowsWinMerge = driverWinMerge.getWindowHandles();
             System.out.println("WinMERGE -----> "+windowsWinMerge);
@@ -78,7 +78,7 @@ public class TestBase {
             driverWinLC = new WindowsDriver(new URL("http://127.0.0.1:4723/"), LC);
             Set<String> windowsLC = driverWinLC.getWindowHandles();
             System.out.println(windowsLC);
-        driverWinLC.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driverWinLC.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         Assert.assertNotNull(driverWinLC,"Log Collector didn't open");
 
         reporter = new TestReporter();
@@ -97,7 +97,7 @@ public class TestBase {
     }
     Set<String> windowsRFAS = driverWinRFAS.getWindowHandles();
         System.out.println(windowsRFAS);
-        driverWinRFAS.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driverWinRFAS.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
     }
 
     public final void setUpFM()  {
@@ -112,7 +112,7 @@ public class TestBase {
         }
         Set<String> windowsFM = driverWinFM.getWindowHandles();
         System.out.println(windowsFM);
-        driverWinFM.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driverWinFM.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         Assert.assertNotNull(driverWinFM,"File Master didn't open");
     }
 
@@ -127,7 +127,7 @@ public class TestBase {
             e.printStackTrace();
         }
         Assert.assertNotNull(driverWinPub,"Publisher didn't open");
-        driverWinPub.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driverWinPub.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
     }
 
     public final void setUpSignalsAdmin() {
@@ -145,7 +145,7 @@ public class TestBase {
         Set<String> windowsSA = driverWinSA.getWindowHandles();
         System.out.println("SA handler login: "+windowsSA);
         Assert.assertNotNull(driverWinSA,"SignalsAdmin didn't open");
-        driverWinSA.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driverWinSA.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
     }
 
     public final void setUpSystemView() {
@@ -161,7 +161,7 @@ public class TestBase {
         Set<String> windowsSV = driverWinSV.getWindowHandles();
         Assert.assertNotNull(driverWinSV,"SystemView didn't open");
         System.out.println("SV handler: "+windowsSV);
-        driverWinSV.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driverWinSV.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
     }
 
     public final void setUpGroupAdmin() {

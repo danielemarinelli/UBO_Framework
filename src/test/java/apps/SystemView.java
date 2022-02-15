@@ -20,7 +20,7 @@ public class SystemView extends TestBase {
         Actions a = new Actions(driverWinSV);
         WebElement publisher= driverWinSV.findElementByName("PUBLISHER");
         a.moveToElement(publisher).click().build().perform();
-        driverWinSV.findElementByAccessibilityId("1002").click();  //untick the ‘show notification'
+        //driverWinSV.findElementByAccessibilityId("1002").click();  //untick the ‘show notification'
         driverWinSV.findElementByName("Read").click();
         //getElementCoordinates(publisher);
         System.out.println("DISPLAY LOGS PUBLISHER....");
