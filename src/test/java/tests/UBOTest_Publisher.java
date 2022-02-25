@@ -32,7 +32,7 @@ public class UBOTest_Publisher extends TestBase{
             files.renameFileMasterFolder();  // DOESN'T RENAME FILE MASTER FOLDER if already exists!!
             System.out.println("#### Performed action renamed fileMaster folder...");
             setUpFM();
-            files.createFoldersToUnzipCommonData();
+            /*files.createFoldersToUnzipCommonData();
             Thread.sleep(1000);
             System.out.println("#### Unzipping daily files!!");
             int daily = files.unzipDailyDataFiles();
@@ -42,7 +42,7 @@ public class UBOTest_Publisher extends TestBase{
         if(daily>0 && common>=0){
             Assert.assertTrue(true);
         }else{
-            Assert.fail();}
+            Assert.fail();}*/
     }
 
     @Test(priority=2, groups={"Publisher"}, description="Delete TEST files from previous Test execution")
@@ -438,6 +438,6 @@ public class UBOTest_Publisher extends TestBase{
         }else{
             Assert.fail();}
     }
-    
+
 
 }
